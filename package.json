@@ -11,6 +11,7 @@
   },
   "main": "app.js",
   "scripts": {
+    "postinstall": "npm run build",
     "build": "node_modules/.bin/gulp build",
     "start": "node_modules/.bin/coffee app.coffee",
     "test": "mocha"
