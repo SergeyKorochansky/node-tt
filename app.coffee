@@ -1,4 +1,7 @@
-app = require('express')()
+express = require 'express'
+app = express()
+
+app.use('/public', express.static(__dirname + '/public'))
 
 app.get '/', (req, res) ->
   res.send 'Hello World!'
