@@ -1,0 +1,25 @@
+{
+  "name": "cleveroad_test_task",
+  "version": "1.0.0",
+  "homepage": "https://github.com/webzepter/cleveroad_test_task",
+  "authors": [
+    "Serhij Korocahnskyj <webzepter@gmail.com>"
+  ],
+  "description": "Express framework test task",
+  "main": "app.js",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.2"
+  }
+}
