@@ -7,6 +7,7 @@ livereload = require 'gulp-livereload'
 coffelint = require 'gulp-coffeelint'
 nodemon = require 'gulp-nodemon'
 gutil = require 'gulp-util'
+del = require 'del'
 
 paths = {
   styles: ['app/assets/styles/**/*.less']
@@ -36,6 +37,9 @@ gulp.task 'watch', ->
   gulp.watch(paths.styles, ['style'])
   gulp.watch(paths.coffee, ['lint'])
 
-gulp.task 'build', ['style']
+gulp.task 'clean', ->
+  del('public')
+
+gulp.task 'build', ['clean', 'style']
 
 gulp.task 'default', ['build', 'lint', 'server', 'watch']
