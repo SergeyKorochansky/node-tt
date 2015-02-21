@@ -11,7 +11,8 @@
   },
   "main": "app.js",
   "scripts": {
-    "start": "node_modules/.bin/gulp build && node_modules/.bin/coffee app.coffee",
+    "build": "node_modules/.bin/gulp build",
+    "start": "node_modules/.bin/coffee app.coffee",
     "test": "mocha"
   },
   "engines": {
