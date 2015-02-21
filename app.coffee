@@ -4,4 +4,6 @@ app.get '/', (req, res) ->
   res.send 'Hello World!'
   console.log 'GET /'
 
-app.listen(3000)
+port = process.env.PORT || 3000
+
+app.listen(port)
