@@ -7,7 +7,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/webzepter/cleveroad_test_task"
+    "url": "https://github.com/webzepter/node-tt"
   },
   "main": "app.js",
   "scripts": {
