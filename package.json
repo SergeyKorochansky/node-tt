@@ -2,7 +2,11 @@
   "name": "node-tt",
   "version": "1.0.0",
   "description": "Express framework test task",
-  "author": "Serhij Korochanskyj <webzepter@gmail.com>",
+  "author": {
+    "name": "Serhij Korochanskyj",
+    "email": "webzepter@gmail.com",
+    "url": "https://github.com/webzepter"
+  },
   "license": "MIT",
   "private": true,
   "repository": {
