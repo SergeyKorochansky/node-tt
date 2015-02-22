@@ -4,6 +4,7 @@ app = express()
 
 app.use('/public', express.static(__dirname + '/public'))
 app.use(morgan('dev'))
+app.set('view engine', 'jade')
 
 app.get '/', (req, res) ->
   res.send 'Hello World!'
