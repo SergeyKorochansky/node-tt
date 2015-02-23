@@ -30,7 +30,7 @@ gulp.task 'lint', ->
   .pipe(coffelint.reporter())
 
 gulp.task 'server', ->
-  nodemon({script: 'app.coffee'})
+  nodemon(script: 'app.coffee')
 
 gulp.task 'watch', ->
   livereload.listen()
