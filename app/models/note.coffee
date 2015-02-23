@@ -1,21 +1,16 @@
-mongoose = require 'mongoose'
-
-noteSchema = new mongoose.Schema(
-  content:
-    type: String
-    required: true
-  milestoneId:
-    type: ObjectId
-    required: true
-  userId:
-    type: ObjectId
-    required: true
-  createdAt:
-    type: Date
-    default: Date.now
-  updatedAt:
-    type: Date
-    default: Date.now
-)
-
-exports.noteModel = mongoose.model('Note', noteSchema)
+module.exports = (waterline) ->
+  waterline.Collection.extend
+    identity: 'note'
+    connection: 'default'
+    autoCreatedAt: true
+    autoUpdatedAt: true
+    attributes:
+      name:
+        type: 'string'
+        required: true
+      content:
+        type: 'string'
+      user:
+        model: 'user'
+      milestone:
+        model: 'milestone'

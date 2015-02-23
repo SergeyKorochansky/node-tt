@@ -1,17 +1,16 @@
-mongoose = require 'mongoose'
-
-projectSchema = new mongoose.Schema(
-  name:
-    type: String
-    required: true
-  description:
-    type: String
-  createdAt:
-    type: Date
-    default: Date.now
-  updatedAt:
-    type: Date
-    default: Date.now
-)
-
-exports.projectModel = mongoose.model('Project', projectSchema)
+module.exports = (waterline) ->
+  waterline.Collection.extend
+    identity: 'project'
+    connection: 'default'
+    autoCreatedAt: true
+    autoUpdatedAt: true
+    attributes:
+      name:
+        type: 'string'
+        required: true
+      description:
+        type: 'string'
+#      users:
+#        collection: 'user'
+#        via: 'projects'
+#        dominant: true

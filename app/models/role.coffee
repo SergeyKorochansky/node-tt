@@ -1,9 +1,12 @@
-mongoose = require 'mongoose'
+module.exports = (waterline) ->
+  waterline.Collection.extend
+    identity: 'role'
+    connection: 'default'
+    attributes:
+      name:
+        type: 'string'
+        required: true
+      users:
+        collection: 'user'
+        via: 'role'
 
-roleSchema = new mongoose.Schema(
-  name:
-    type: String
-    required: true
-)
-
-exports.roleModel = mongoose.model('City', roleSchema)

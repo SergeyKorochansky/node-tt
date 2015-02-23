@@ -1,16 +1,23 @@
 express = require 'express'
-morgan = require 'morgan'
+passport = require 'passport'
+waterline = require 'waterline'
+config = require './config/config'
+
 app = express()
+orm = new waterline()
 
-app.use('/public', express.static(__dirname + '/public'))
-app.use(morgan('dev'))
-app.set('view engine', 'jade')
+require('./config/models')(orm)
 
-app.get '/', (req, res) ->
-  res.send 'Hello World!'
+orm.initialize config.db, (err, models) ->
+  throw err if err
 
-port = process.env.PORT || 3000
+  app.models = models.collections
+  app.connections = models.collections
+  app.controllers = require('./config/controllers')()
 
-app.listen(port)
+  require('./config/passport')(app.models.user, passport)
+  require('./config/express')(app, passport)
+  require('./config/controllers')(app)
+  require('./config/routes')(app, passport)
 
-console.log('Listening on port %s', port)
+  app.listen(config.server.port)
