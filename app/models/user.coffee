@@ -6,7 +6,7 @@ module.exports = (waterline) ->
     autoUpdatedAt: true
     attributes:
       email:
-        type: 'string'
+        type: 'email'
         required: true
         unique: true
       hash:
