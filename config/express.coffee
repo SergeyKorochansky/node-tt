@@ -14,9 +14,10 @@ config = require('./config')
 
 module.exports = (app, passport) ->
   app.use(compression())
-  app.use(express.static(config.root + '/public'))
+  app.use(express.static(config.static))
   app.use(morgan('dev'))
   app.set('view engine', 'jade')
+  app.set('views', config.views)
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded(extended: true))
   app.use(multer())
