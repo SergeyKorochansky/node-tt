@@ -1,0 +1,13 @@
+extends ../layouts/auth
+
+block title
+  title Login
+
+block content
+  form.text-center(role='form' method='post' action='/login')
+    h2 Login
+    input.form-control(type='email', placeholder='Email', required='', autofocus='')
+    input.form-control(type='password', placeholder='Password', required='')
+    button.btn.btn-lg.btn-primary.btn-block.btn-margin(type='submit') Log in
+
+    a(href='/password-restore') Restore password
