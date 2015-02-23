@@ -1,9 +1,9 @@
 {
-  "name": "cleveroad_test_task",
+  "name": "node-tt",
   "version": "1.0.0",
-  "homepage": "https://github.com/webzepter/cleveroad_test_task",
+  "homepage": "https://github.com/webzepter/node-tt",
   "authors": [
-    "Serhij Korocahnskyj <webzepter@gmail.com>"
+    "Serhij Korocahnskyj <webzepter@gmail.com> (https://github.com/webzepter)"
   ],
   "description": "Express framework test task",
   "main": "app.js",
