@@ -11,6 +11,8 @@ settings =
   root: rootPath
   controllers: rootPath + '/app/controllers'
   models: rootPath + '/app/models'
+  views: rootPath + '/app/views'
+  static: rootPath + '/public'
 
   server:
     port: '3000'
