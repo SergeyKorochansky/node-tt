@@ -11,12 +11,13 @@ del = require 'del'
 paths = {
   styles: ['app/assets/styles/**/*.less']
   coffee: ['app/**/*.coffee', 'Gulpfile.coffee']
+  bower:  ['bower_components']
 }
 
 gulp.task 'style', ->
   gulp.src(paths.styles)
   .pipe(sourcemaps.init())
-  .pipe(less()).on('error', gutil.log)
+  .pipe(less(paths: paths.bower)).on('error', gutil.log)
   .pipe(prefix())
   .pipe(minifyCSS())
   .pipe(sourcemaps.write())
