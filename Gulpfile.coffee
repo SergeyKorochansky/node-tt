@@ -3,7 +3,6 @@ sourcemaps = require 'gulp-sourcemaps'
 less = require 'gulp-less'
 prefix = require 'gulp-autoprefixer'
 minifyCSS = require 'gulp-minify-css'
-livereload = require 'gulp-livereload'
 coffelint = require 'gulp-coffeelint'
 nodemon = require 'gulp-nodemon'
 gutil = require 'gulp-util'
@@ -22,7 +21,6 @@ gulp.task 'style', ->
   .pipe(minifyCSS())
   .pipe(sourcemaps.write())
   .pipe(gulp.dest('public/css'))
-  .pipe(livereload())
 
 gulp.task 'lint', ->
   gulp.src(paths.coffee)
@@ -33,7 +31,6 @@ gulp.task 'server', ->
   nodemon(script: 'app.coffee')
 
 gulp.task 'watch', ->
-  livereload.listen()
   gulp.watch(paths.styles, ['style'])
   gulp.watch(paths.coffee, ['lint'])
 
