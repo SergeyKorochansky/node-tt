@@ -12,6 +12,7 @@ settings =
   controllers: rootPath + '/app/controllers'
   models: rootPath + '/app/models'
   views: rootPath + '/app/views'
+  middlewares: rootPath + '/app/middlewares'
   static: rootPath + '/public'
 
   server:

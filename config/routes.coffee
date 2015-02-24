@@ -1,8 +1,20 @@
-module.exports = (app, passport) ->
-  app.get('/login', app.controllers.sessions.new)
-  app.post('/login', app.controllers.sessions.create)
-  app.get('/signup', app.controllers.users.new)
-  app.post('/logout', app.controllers.sessions.destroy)
+config = require './config'
 
-  app.get('/users')
+module.exports = (app, passport) ->
+  isLoggedIn = app.middlewares.auth.isLoggedIn
+  isNotLoggedIn = app.middlewares.auth.isNotLoggedIn
+
+  app.get '/login', isNotLoggedIn, app.controllers.sessions.new
+  app.post '/login', isNotLoggedIn, app.controllers.sessions.create(passport)
+
+  app.get '/signup', isNotLoggedIn, app.controllers.users.new
+  app.post '/signup', isNotLoggedIn, app.controllers.users.create(passport)
+
+  app.get '/password-restore', isNotLoggedIn, app.controllers.users.restore
+  app.post '/password-restore', isNotLoggedIn, app.controllers.users.restore
+
+  app.all '*', isLoggedIn
+
+  app.get '/', app.controllers.home.index
+  app.post '/logout', app.controllers.sessions.destroy
 

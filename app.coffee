@@ -14,6 +14,7 @@ orm.initialize config.db, (err, models) ->
   app.models = models.collections
   app.connections = models.collections
   app.controllers = require('./config/controllers')()
+  app.middlewares = require('./config/middlewares')()
 
   require('./config/passport')(app.models.user, passport)
   require('./config/express')(app, passport)
