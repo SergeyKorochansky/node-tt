@@ -9,7 +9,7 @@ methodOverride = require('method-override')
 csrf = require('csurf')
 multer = require('multer')
 mongoStore = require('connect-mongo')(session)
-flash = require('connect-flash')
+flash = require('express-flash')
 config = require('./config')
 
 module.exports = (app, passport) ->
