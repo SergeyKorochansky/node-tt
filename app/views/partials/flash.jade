@@ -1,0 +1,7 @@
+#flash.text-center
+  for array, type in messages
+    if type == 'error'
+      - type = 'danger'
+      for message in array
+        .alert(role='alert' class='alert-' + type)
+          p= message
