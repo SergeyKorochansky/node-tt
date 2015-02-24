@@ -1,3 +1,3 @@
 module.exports =
   index: (req, res) ->
-    res.render 'sessions/new'
+    res.render 'home/index'
