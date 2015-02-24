@@ -17,6 +17,7 @@ settings =
 
   server:
     port: '3000'
+    hostname: '0.0.0.0'
 
   secret: 'secret'
   env: process.env.NODE_ENV || 'development'
