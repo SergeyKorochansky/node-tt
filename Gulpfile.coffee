@@ -3,6 +3,8 @@ sourcemaps = require 'gulp-sourcemaps'
 less = require 'gulp-less'
 prefix = require 'gulp-autoprefixer'
 minifyCSS = require 'gulp-minify-css'
+concat = require 'gulp-concat'
+uglify = require 'gulp-uglify'
 coffelint = require 'gulp-coffeelint'
 nodemon = require 'gulp-nodemon'
 gutil = require 'gulp-util'
@@ -12,7 +14,18 @@ paths = {
   styles: ['app/assets/styles/**/*.less']
   coffee: ['app/**/*.coffee', 'Gulpfile.coffee']
   bower:  ['bower_components']
+  scripts:[
+    'bower_components/jquery/dist/jquery.min.js'
+    'bower_components/bootstrap/js/collapse.js'
+    'bower_components/bootstrap/js/transition.js'
+  ]
 }
+
+gulp.task 'js', ->
+  gulp.src(paths.scripts)
+  .pipe(uglify())
+  .pipe(concat('default.js'))
+  .pipe(gulp.dest('public/js'))
 
 gulp.task 'style', ->
   gulp.src(paths.styles)
@@ -38,6 +51,6 @@ gulp.task 'watch', ->
 gulp.task 'clean', ->
   del('public')
 
-gulp.task 'build', ['clean', 'style']
+gulp.task 'build', ['clean', 'style', 'js']
 
 gulp.task 'default', ['build', 'lint', 'server', 'watch']
