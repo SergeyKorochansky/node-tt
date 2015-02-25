@@ -37,6 +37,8 @@ module.exports =
     role:
       model: 'role'
     comparePasswords: comparePasswords
+    fullName: ->
+      "#{@firstName} #{@lastName}"
 #    projects:
 #      collection: 'project'
 #      via: 'users'
