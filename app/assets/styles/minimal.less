@@ -50,15 +50,19 @@ form {
     z-index: 2;
   }
 
-  input:first-of-type {
+  input.form-control {
+    border-radius: 0;
     margin-bottom: -1px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
+  }
+
+  input:first-of-type {
+    border-top-right-radius: @input-border-radius;
+    border-top-left-radius: @input-border-radius;
   }
 
   input:last-of-type {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+    border-bottom-left-radius: @input-border-radius;
+    border-bottom-right-radius: @input-border-radius;
     margin-bottom: 10px;
   }
 }
