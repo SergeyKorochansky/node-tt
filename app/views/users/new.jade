@@ -4,7 +4,7 @@ block title
 block content
   form.text-center(role='form' method='post' action='/signup')
     h2 Signup
-    input.form-control(type='email', placeholder='Email', required='', autofocus='')
-    input.form-control(type='password', placeholder='Password', required='')
+    input.form-control(name='email' type='email', placeholder='Email', required='', autofocus='')
+    input.form-control(name='password' type='password', placeholder='Password', required='')
     button.btn.btn-lg.btn-primary.btn-block.btn-margin(type='submit') Sign up
     a(href='/login') Log in
