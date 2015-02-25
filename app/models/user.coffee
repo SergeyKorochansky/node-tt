@@ -23,6 +23,7 @@ module.exports =
       required: true
       unique: true
       lowercase: true
+      maxLength: 100
     password:
       type: 'string'
       minLength: 6
