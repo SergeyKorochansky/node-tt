@@ -30,8 +30,14 @@ module.exports =
       columnName: 'hash'
     firstName:
       type: 'string'
+      required: true
+      minLength: 3
+      maxLength: 100
     lastName:
       type: 'string'
+      required: true
+      minLength: 3
+      maxLength: 100
     city:
       model: 'city'
     role:
