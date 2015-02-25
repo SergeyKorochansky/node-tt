@@ -10,7 +10,7 @@ generateHash = (user, cb) ->
         cb()
 
 comparePasswords = (candidatePassword, cb) ->
-  bcrypt.compare(candidatePassword, this.password, cb)
+  bcrypt.compare(candidatePassword, @password, cb)
 
 module.exports =
   identity: 'user'
