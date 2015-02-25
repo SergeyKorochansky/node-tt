@@ -19,7 +19,7 @@
           a(href='#projects') Projects
       ul.nav.navbar-nav.navbar-right
         li
-          a(href='#') John Doe
+          a(href='#')= user.fullName()
         li
           p.navbar-btn
             form(role='form' method='post' action='/logout')

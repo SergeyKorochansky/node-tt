@@ -12,3 +12,7 @@ module.exports =
       res.redirect '/'
     else
       next()
+
+  setLocals: (req, res, next) ->
+    res.locals.user = req.user
+    next()
