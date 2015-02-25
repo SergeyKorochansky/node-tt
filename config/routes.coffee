@@ -4,6 +4,7 @@ module.exports = (app, passport) ->
   isLoggedIn = app.middlewares.auth.isLoggedIn
   isNotLoggedIn = app.middlewares.auth.isNotLoggedIn
   setLocals = app.middlewares.auth.setLocals
+  errorHandlers = app.middlewares.error
 
   app.get '/login', isNotLoggedIn, app.controllers.sessions.new
   app.post '/login', isNotLoggedIn, app.controllers.sessions.create(passport)
@@ -20,3 +21,5 @@ module.exports = (app, passport) ->
   app.get '/', app.controllers.home.index
   app.post '/logout', app.controllers.sessions.destroy
 
+  app.use errorHandlers.notFound
+  app.use errorHandlers.internalError

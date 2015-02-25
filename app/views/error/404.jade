@@ -1,0 +1,11 @@
+extends ../layouts/error
+
+block title
+  title 404 Not found
+
+block content
+  h1 404 Page Not Found!
+  h3
+    | You tried to reach:&nbsp;
+    em #{url}
+  h4 That page doesn't exist.
