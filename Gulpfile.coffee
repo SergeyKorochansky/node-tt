@@ -9,6 +9,7 @@ coffelint = require 'gulp-coffeelint'
 nodemon = require 'gulp-nodemon'
 gutil = require 'gulp-util'
 del = require 'del'
+shell = require 'gulp-shell'
 
 paths = {
   styles: ['app/assets/styles/**/*.less']
@@ -43,6 +44,8 @@ gulp.task 'lint', ->
 
 gulp.task 'server', ->
   nodemon(script: 'app.coffee')
+
+gulp.task 'seed', shell.task 'node_modules/.bin/coffee ./config/seed.coffee'
 
 gulp.task 'watch', ->
   gulp.watch(paths.styles, ['style'])
