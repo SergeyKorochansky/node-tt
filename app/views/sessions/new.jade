@@ -6,7 +6,7 @@ block title
 block content
   form.text-center(role='form' method='post' action='/login')
     h2 Login
-    input.form-control(name='email' type='email' placeholder='Email' required autofocus maxlength='100')
+    input.form-control(name='email' type='email' placeholder='Email' required autofocus maxlength='100' title='Maximal length is 100 chars')
     input.form-control(name='password' type='password' placeholder='Password' required pattern='.{6,}' title='Minimal length is 6 chars')
     button.btn.btn-lg.btn-primary.btn-block.btn-margin(type='submit') Log in
 
