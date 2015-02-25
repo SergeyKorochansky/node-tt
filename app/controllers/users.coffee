@@ -2,7 +2,12 @@ module.exports =
   new: (req, res) ->
     res.render 'users/new'
   create: (passport) ->
-    (req, res) ->
+    do ->
+      passport.authenticate 'local-signup',
+        successRedirect: '/'
+        failureRedirect: '/signup'
+        failureFlash: true
+
   restore: (req, res) ->
     res.render 'users/restore'
   reset: (req, res) ->

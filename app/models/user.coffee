@@ -1,3 +1,17 @@
+bcrypt = require 'bcrypt'
+
+generateHash = (user, cb) ->
+  bcrypt.genSalt 10, (err, salt) ->
+    bcrypt.hash user.password, salt, (err, hash) ->
+      if (err)
+        cb(err)
+      else
+        user.password = hash
+        cb()
+
+comparePasswords = (candidatePassword, cb) ->
+  bcrypt.compare(candidatePassword, this.password, cb)
+
 module.exports = (waterline) ->
   waterline.Collection.extend
     identity: 'user'
@@ -9,12 +23,12 @@ module.exports = (waterline) ->
         type: 'email'
         required: true
         unique: true
-      hash:
+        lowercase: true
+      password:
         type: 'string'
+        minLength: 6
         required: true
-      salt:
-        type: 'string'
-        required: true
+        columnName: 'hash'
       firstName:
         type: 'string'
       lastName:
@@ -23,6 +37,9 @@ module.exports = (waterline) ->
         model: 'city'
       role:
         model: 'role'
+      comparePasswords: comparePasswords
 #      projects:
 #        collection: 'project'
 #        via: 'users'
+    beforeCreate: generateHash
+    beforeUpdate: generateHash

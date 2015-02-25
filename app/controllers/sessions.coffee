@@ -3,8 +3,8 @@ module.exports =
     res.render('sessions/new')
 
   create: (passport) ->
-    ->
-      passport.authenticate 'local',
+    do ->
+      passport.authenticate 'local-login',
         successRedirect: '/'
         failureRedirect: '/login'
         successFlash: 'You have successfully logged in!'
