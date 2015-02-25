@@ -12,30 +12,40 @@ module.exports = (userModel, passport) ->
   passport.serializeUser(serialize)
   passport.deserializeUser(deserialize)
 
-  fieldNames =
+  loginParams =
     usernameField: 'email'
-#    passwordField: 'password'
+
+  signupParams =
+    usernameField: 'email'
+    passReqToCallback: true
 
   localLogin = (email, password, done) ->
-    userModel.findOne email: email, (err, user) ->
-#      console.log user
-      if err
-        done(err)
-      else if !user
-        done(null, false, message: 'Unknown user')
-      else user.comparePasswords password, (err, matched) ->
-        if matched
+    userModel
+      .findOne
+        email: email.toLowerCase(),
+      .then (user) ->
+        user.comparePasswords password, (err, matched) ->
+          if matched
+            done(null, user)
+          else
+            done(null, false, message: 'Invalid credentials')
+      .catch (err) ->
+        done(null, false, message: 'Invalid credentials')
+
+
+  passport.use('local-login', new LocalStrategy(loginParams, localLogin))
+
+  localSignUp = (req, email, password, done) ->
+    userModel
+      .create
+        email: email.toLowerCase()
+        password: password
+        firstName: req.body.firstName
+        lastName: req.body.lastName
+      .then (user) ->
           done(null, user)
-        else
-          done(null, false, message: 'Invalid password')
+      .catch (err) ->
+        invalidFields = err.keys.join(' ')
+        done(null, false, message: "This fields are incorrect: #{invalidFields}")
 
-
-  passport.use('local-login', new LocalStrategy(fieldNames, localLogin))
-
-  localSignUp = (email, password, done) ->
-    userModel.create email: email, password: password, (err, user) ->
-      if err
-        return done(err)
-      done(null, user)
-
-  passport.use('local-signup', new LocalStrategy(fieldNames, localSignUp))
+  passport.use('local-signup', new LocalStrategy(signupParams, localSignUp))
