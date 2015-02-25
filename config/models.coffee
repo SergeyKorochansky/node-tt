@@ -7,4 +7,5 @@ module.exports = (orm) ->
     dirname: config.models
     filter: /\.coffee$/
     resolve: (model) ->
-      orm.loadCollection(model(waterline))
+      collection = waterline.Collection.extend model
+      orm.loadCollection collection
