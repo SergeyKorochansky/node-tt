@@ -5,7 +5,7 @@ module.exports =
     do ->
       passport.authenticate 'local-signup',
         successRedirect: '/'
-        failureRedirect: '/signup'
+        failureRedirect: 'back'
         failureFlash: true
 
   restore: (req, res) ->

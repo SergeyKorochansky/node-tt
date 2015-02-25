@@ -6,7 +6,7 @@ module.exports =
     do ->
       passport.authenticate 'local-login',
         successRedirect: '/'
-        failureRedirect: '/login'
+        failureRedirect: 'back'
         successFlash: 'You have successfully logged in!'
         failureFlash: true
 
