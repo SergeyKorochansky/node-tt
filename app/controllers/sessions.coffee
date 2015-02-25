@@ -13,4 +13,4 @@ module.exports =
   destroy: (req, res) ->
     req.logout()
     req.flash 'info', 'You have successfully logged out!'
-    res.redirect '/'
+    res.redirect '/login'
