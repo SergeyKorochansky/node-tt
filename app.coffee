@@ -12,7 +12,7 @@ orm.initialize config.db, (err, models) ->
   throw err if err
 
   app.models = models.collections
-  app.connections = models.collections
+  app.connections = models.connections
   app.controllers = require('./config/controllers')()
   app.middlewares = require('./config/middlewares')()
 
