@@ -1,16 +1,17 @@
-express = require('express')
-session = require('express-session')
-compression = require('compression')
-morgan = require('morgan')
-cookieParser = require('cookie-parser')
-cookieSession = require('cookie-session')
-bodyParser = require('body-parser')
-methodOverride = require('method-override')
-csrf = require('csurf')
-multer = require('multer')
+express = require 'express'
+session = require 'express-session'
+compression = require 'compression'
+morgan = require 'morgan'
+cookieParser = require 'cookie-parser'
+cookieSession = require 'cookie-session'
+bodyParser = require 'body-parser'
+methodOverride = require 'method-override'
+csrf = require 'csurf'
+multer = require 'multer'
 mongoStore = require('connect-mongo')(session)
-flash = require('express-flash')
-config = require('./config')
+flash = require 'express-flash'
+expressValidator = require 'express-validator'
+config = require './config'
 
 module.exports = (app, passport) ->
   app.use(compression())
@@ -20,6 +21,7 @@ module.exports = (app, passport) ->
   app.set('views', config.views)
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded(extended: true))
+  app.use(expressValidator())
   app.use(multer())
   app.use(methodOverride((req, res) ->
     if req.body && typeof req.body == 'object' && '_method' in req.body
