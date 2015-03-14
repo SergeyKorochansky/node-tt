@@ -1,9 +1,10 @@
 extends ../layouts/minimal
+
 block title
   title Password restore
 block content
-  form.text-center(role='form' method='post' action='/signup')
+  form.text-center(role='form' method='post' action='/forgot')
     h2 Password restore
-    input.form-control(type='email' placeholder='Email' required autofocus maxlength='100' title='Maximal length is 100 chars')
+    input.form-control(type='email' name='email' placeholder='Email' required autofocus maxlength='100' title='Maximal length is 100 chars')
     button.btn.btn-lg.btn-primary.btn-block.btn-margin(type='submit') Restore
     a(href='/login') Back to login

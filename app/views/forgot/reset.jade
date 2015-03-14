@@ -1,0 +1,9 @@
+extends ../layouts/minimal
+
+block title
+  title Password reset
+block content
+  form.text-center(role='form' method='post')
+    h2 Password reset
+    input.form-control(type='password' name='password' placeholder='New password' required autofocus maxlength='100' title='Maximal length is 100 chars')
+    button.btn.btn-lg.btn-primary.btn-block.btn-margin(type='submit') Save new password

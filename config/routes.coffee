@@ -12,8 +12,10 @@ module.exports = (app, passport) ->
   app.get '/signup', isNotLoggedIn, app.controllers.users.new
   app.post '/signup', isNotLoggedIn, app.controllers.users.create(passport)
 
-  app.get '/password-restore', isNotLoggedIn, app.controllers.users.restore
-  app.post '/password-restore', isNotLoggedIn, app.controllers.users.restore
+  app.get '/forgot', isNotLoggedIn, app.controllers.forgot.showEmailForm
+  app.post '/forgot', isNotLoggedIn, app.controllers.forgot.sendMail(app)
+  app.get '/reset/:token', isNotLoggedIn, app.controllers.forgot.showNewPasswordForm(app)
+  app.post '/reset/:token', isNotLoggedIn, app.controllers.forgot.saveNewPassword(app)
 
   app.all '*', isLoggedIn
   app.all '*', setLocals

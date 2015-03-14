@@ -39,6 +39,10 @@ module.exports =
       required: true
       minLength: 3
       maxLength: 100
+    resetPasswordToken:
+      type: 'string'
+    resetPasswordExpires:
+      type: 'datetime'
     city:
       model: 'city'
     role:
