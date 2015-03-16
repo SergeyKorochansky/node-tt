@@ -9,14 +9,14 @@
       a.navbar-brand(href='/') Node.js test task
     .navbar-collapse.collapse
       ul.nav.navbar-nav
-        li.active
-          a(href='#') Home
-        li
-          a(href='#cities') Cities
-        li
-          a(href='#users') Users
-        li
-          a(href='#projects') Projects
+        - var menu = { 'Home': '/', 'Cities': '/cities', 'Users': '/users', 'Projects': '/projects'}
+        block link
+          - var selected = 'Home';
+        for val, key in menu
+          - var itemClass = (selected === key ? 'active' : '');
+            li(class=itemClass)
+              a(href=val)= key
+
       ul.nav.navbar-nav.navbar-right
         li
           a(href='#')= user.fullName()
