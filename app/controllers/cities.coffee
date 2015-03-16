@@ -1,9 +1,9 @@
 module.exports = (app) ->
 #  TODO Move this check to model's lifecycle callback
   checkCityForUniqueness = (req, res, cb) ->
-    app.models.city.
-    findOneByName(req.body.name).
-    exec (err, nonUniqueCity) ->
+    app.models.city
+    .findOneByName(req.body.name)
+    .exec (err, nonUniqueCity) ->
       if nonUniqueCity
         req.flash 'error', 'City with same name already exists'
         res.redirect 'back'
