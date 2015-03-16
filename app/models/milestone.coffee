@@ -7,6 +7,7 @@ module.exports =
     name:
       type: 'string'
       required: true
+      maxLength: 100
     complete:
       type: 'integer'
       min: 0
