@@ -57,5 +57,5 @@ module.exports = (app) ->
       if err || !cities
         next err
       else
-        req.flash 'success', "City #{cities[0].name} was successful deleted"
+        req.flash 'success', "City #{cities[0].name} was deleted"
         res.redirect '/cities'
