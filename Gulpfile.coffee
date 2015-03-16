@@ -10,6 +10,7 @@ nodemon = require 'gulp-nodemon'
 gutil = require 'gulp-util'
 del = require 'del'
 shell = require 'gulp-shell'
+nodeInspector = require 'gulp-node-inspector'
 
 paths = {
   styles: ['app/assets/styles/**/*.less']
@@ -43,7 +44,11 @@ gulp.task 'lint', ->
   .pipe(coffelint.reporter())
 
 gulp.task 'server', ->
-  nodemon(script: 'app.coffee')
+  nodemon '-w app -w app.coffee -e coffee,jade --debug app.coffee'
+
+gulp.task 'node-inspector', ->
+  gulp.src([])
+  .pipe(nodeInspector())
 
 gulp.task 'seed', shell.task 'node_modules/.bin/coffee ./config/seed.coffee'
 
@@ -56,4 +61,4 @@ gulp.task 'clean', ->
 
 gulp.task 'build', ['clean', 'style', 'js']
 
-gulp.task 'default', ['build', 'lint', 'server', 'watch']
+gulp.task 'default', ['build', 'lint', 'node-inspector', 'server', 'watch']
