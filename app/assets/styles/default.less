@@ -25,3 +25,17 @@
 body {
   padding-top: 70px;
 }
+
+.table-responsive {
+  font-size: 20px;
+}
+
+.table-responsive tbody>tr>td {
+  vertical-align: middle;
+}
+.table-pulled tr td {
+  &:last-child, &:nth-last-child(2) {
+    white-space: nowrap;
+    width: 1%;
+  }
+}
