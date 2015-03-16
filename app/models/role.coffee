@@ -5,6 +5,7 @@ module.exports =
     name:
       type: 'string'
       required: true
+      maxLength: 100
     users:
       collection: 'user'
       via: 'role'
