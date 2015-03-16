@@ -1,4 +1,4 @@
-module.exports =
+module.exports = ->
   new: (req, res) ->
     res.render 'users/new'
 
