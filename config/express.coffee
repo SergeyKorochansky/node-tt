@@ -21,11 +21,10 @@ module.exports = (app, passport) ->
   app.set('views', config.views)
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded(extended: true))
-  app.use(expressValidator())
   app.use(multer())
-  app.use(methodOverride((req, res) ->
-    if req.body && typeof req.body == 'object' && '_method' in req.body
-      # look in urlencoded POST bodies and delete it
+  app.use(expressValidator())
+  app.use(methodOverride((req) ->
+    if req.body?.hasOwnProperty('_method')
       method = req.body._method
       delete req.body._method
       method
