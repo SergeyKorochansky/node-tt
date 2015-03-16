@@ -6,6 +6,7 @@ module.exports =
       type: 'string'
       required: true
       unique: true
+      maxLength: 100
     users:
       collection: 'user'
       via: 'city'
