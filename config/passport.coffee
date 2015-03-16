@@ -21,15 +21,14 @@ module.exports = (userModel, passport) ->
 
   localLogin = (email, password, done) ->
     userModel
-      .findOne
-        email: email.toLowerCase(),
+      .findOneByEmail(email.toLowerCase())
       .then (user) ->
         user.comparePasswords password, (err, matched) ->
           if matched
             done(null, user)
           else
             done(null, false, message: 'Invalid credentials')
-      .catch (err) ->
+      .catch ->
         done(null, false, message: 'Invalid credentials')
 
 
