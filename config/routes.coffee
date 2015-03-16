@@ -24,4 +24,5 @@ module.exports = (app, passport) ->
   app.post '/logout', app.controllers.sessions.destroy
 
   app.use errorHandlers.notFound
+  app.use errorHandlers.validationError
   app.use errorHandlers.internalError
