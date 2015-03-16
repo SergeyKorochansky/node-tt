@@ -7,8 +7,10 @@ module.exports =
     name:
       type: 'string'
       required: true
+      maxLength: 100
     content:
       type: 'string'
+      maxLength: 10000
     user:
       model: 'user'
     milestone:
