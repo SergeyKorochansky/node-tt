@@ -23,6 +23,13 @@ module.exports = (app, passport) ->
   app.get '/', app.controllers.home.index
   app.post '/logout', app.controllers.sessions.destroy
 
+  app.get '/cities', app.controllers.cities.index
+  app.get '/cities/new', app.controllers.cities.new
+  app.post '/cities', app.controllers.cities.create
+  app.get '/cities/:id/edit', app.controllers.cities.edit
+  app.patch '/cities/:id', app.controllers.cities.update
+  app.delete '/cities/:id', app.controllers.cities.destroy
+
   app.use errorHandlers.notFound
   app.use errorHandlers.validationError
   app.use errorHandlers.internalError

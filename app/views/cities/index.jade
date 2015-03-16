@@ -1,0 +1,26 @@
+extends ../layouts/default
+block title
+  title Cities
+block link
+  - var selected = 'Cities'
+block content
+  .col-md-3
+  .col-md-6
+    .table-responsive
+      table.table.table-condensed.table-pulled
+        thead
+          tr
+            th Name
+            th Edit
+            th Delete
+        tbody
+          for city in cities
+            tr
+              td= city.name
+              td: a(href='/cities/' + city.id + '/edit') Edit
+              td: form(method='post' action='/cities/' + city.id)
+                input(type='hidden' name='_method' value='delete')
+                button.btn.btn-danger(type='submit') Delete
+
+    .text-center
+      a.btn.btn-success(role='button' href='/cities/new') Add new

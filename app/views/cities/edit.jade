@@ -1,0 +1,18 @@
+extends ../layouts/default
+block title
+  title Edit city
+block link
+  - var selected = 'Cities'
+block content
+  .col-md-4
+  .col-md-4.text-center
+    h2 Edit city
+    form.form-horizontal(role='form' method='post' action='/cities/#{city.id}')
+      input(type='hidden' name='_method' value='patch')
+      .form-group
+        label.col-sm-2.control-label(for='inputName') Name
+        .col-sm-10
+          input#inputName.form-control(name='name' type='text' placeholder='Name' value=city.name required autofocus maxlength='100' title='Maximal length is 100 chars')
+      .btn-toolbar
+        a.btn.btn-link(href='/cities') Go back
+        button.btn.btn-success(type='submit') Save

@@ -1,0 +1,17 @@
+extends ../layouts/default
+block title
+  title Create new city
+block link
+  - var selected = 'Cities'
+block content
+  .col-md-4
+  .col-md-4.text-center
+    h2 Create city
+    form.form-horizontal(role='form' method='post' action='/cities')
+      .form-group
+        label.col-sm-2.control-label(for='inputName') Name
+        .col-sm-10
+          input#inputName.form-control(name='name' type='text' placeholder='Name' required autofocus maxlength='100' title='Maximal length is 100 chars')
+      .btn-toolbar
+        a.btn.btn-link(href='/cities') Go back
+        button.btn.btn-success(type='submit') Create
