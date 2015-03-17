@@ -1,13 +1,16 @@
 bcrypt = require 'bcrypt'
 
 generateHash = (user, cb) ->
-  bcrypt.genSalt 10, (err, salt) ->
-    bcrypt.hash user.password, salt, (err, hash) ->
-      if (err)
-        cb(err)
-      else
-        user.password = hash
-        cb()
+  if user.password?
+    bcrypt.genSalt 10, (err, salt) ->
+      bcrypt.hash user.password, salt, (err, hash) ->
+        if (err)
+          cb(err)
+        else
+          user.password = hash
+          cb()
+  else
+    cb()
 
 comparePasswords = (candidatePassword, cb) ->
   bcrypt.compare(candidatePassword, @password, cb)
