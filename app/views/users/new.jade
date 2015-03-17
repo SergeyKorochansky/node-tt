@@ -2,7 +2,7 @@ extends ../layouts/minimal
 block title
   title Sign up
 block content
-  form.text-center(role='form' method='post' action='/signup')
+  form.text-center(role='form' method='post')
     h2 Signup
     input.form-control(name='email' type='email' placeholder='Email' required autofocus maxlength='100' title='Maximal length is 100 chars')
     input.form-control(name='password' type='password' placeholder='Password' required pattern='.{6,}' title='Minimal length is 6 chars')
