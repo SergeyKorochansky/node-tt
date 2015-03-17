@@ -30,6 +30,10 @@ module.exports = (app, passport) ->
   app.patch '/cities/:id', app.controllers.cities.update
   app.delete '/cities/:id', app.controllers.cities.destroy
 
+  app.get '/users', app.controllers.users.index
+  app.patch '/users/:id', app.controllers.users.update
+  app.delete '/users/:id', app.controllers.users.destroy
+
   app.use errorHandlers.notFound
   app.use errorHandlers.validationError
   app.use errorHandlers.internalError

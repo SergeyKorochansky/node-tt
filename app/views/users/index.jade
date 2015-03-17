@@ -1,0 +1,25 @@
+extends ../layouts/default
+block title
+  title Users
+block link
+  - var selected = 'Users'
+block content
+  .table-responsive
+    table.table.table-condensed
+      thead
+        tr
+          th #
+          th Full Name
+          th Email
+          th City
+          th Delete
+      tbody
+        for user, index in users
+          tr
+            td= index + 1
+            td= user.fullName()
+            td= user.email
+            td= user.city ? user.city.name : ''
+            td: form(method='post' action="/users/#{user.id}")
+              input(type='hidden' name='_method' value='delete')
+              button.btn.btn-danger(type='submit') Delete
