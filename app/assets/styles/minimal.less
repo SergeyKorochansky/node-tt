@@ -1,16 +1,13 @@
 @import "bootstrap/less/variables.less";
 @import "bootstrap/less/mixins.less";
-
 @import "bootstrap/less/normalize.less";
 @import "bootstrap/less/print.less";
-
 @import "bootstrap/less/scaffolding.less";
 @import "bootstrap/less/type.less";
 @import "bootstrap/less/grid.less";
 @import "bootstrap/less/forms.less";
 @import "bootstrap/less/buttons.less";
 @import "bootstrap/less/alerts.less";
-
 @import "bootstrap/less/utilities.less";
 @import "bootstrap/less/responsive-utilities.less";
 
@@ -50,19 +47,22 @@ form {
     z-index: 2;
   }
 
-  input.form-control {
-    border-radius: 0;
-    margin-bottom: -1px;
-  }
-
-  input:first-of-type {
-    border-top-right-radius: @input-border-radius;
-    border-top-left-radius: @input-border-radius;
-  }
-
-  input:last-of-type {
-    border-bottom-left-radius: @input-border-radius;
-    border-bottom-right-radius: @input-border-radius;
+  .form-group > input, select {
     margin-bottom: 10px;
+
+    &.form-control {
+      border-radius: 0;
+      margin-bottom: -1px;
+    }
+
+    &:first-child {
+      border-top-right-radius: @input-border-radius;
+      border-top-left-radius: @input-border-radius;
+    }
+
+    &:last-child {
+      border-bottom-left-radius: @input-border-radius;
+      border-bottom-right-radius: @input-border-radius;
+    }
   }
 }
