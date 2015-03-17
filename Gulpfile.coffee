@@ -13,33 +13,49 @@ shell = require 'gulp-shell'
 nodeInspector = require 'gulp-node-inspector'
 
 paths = {
-  styles: ['app/assets/styles/**/*.less']
-  coffee: ['app/**/*.coffee', 'Gulpfile.coffee']
-  bower:  ['bower_components']
-  scripts:[
-    'bower_components/jquery/dist/jquery.min.js'
-    'bower_components/bootstrap/js/collapse.js'
-    'bower_components/bootstrap/js/transition.js'
-  ]
+  bower: ['bower_components']
+  src:
+    less: ['app/assets/styles/**/*.less']
+    coffee: ['app/**/*.coffee', 'Gulpfile.coffee']
+    css: [
+      'bower_components/select2/select2.css'
+      'bower_components/select2/select2-bootstrap.css'
+    ]
+    js: [
+      'bower_components/jquery/dist/jquery.min.js'
+      'bower_components/bootstrap/js/collapse.js'
+      'bower_components/bootstrap/js/transition.js'
+      'bower_components/select2/select2.min.js'
+    ]
+  dest:
+    css: 'public/css'
+    js: 'public/js'
 }
 
 gulp.task 'js', ->
-  gulp.src(paths.scripts)
+  gulp.src(paths.src.js)
   .pipe(uglify())
   .pipe(concat('default.js'))
-  .pipe(gulp.dest('public/js'))
+  .pipe(gulp.dest(paths.dest.js))
 
-gulp.task 'style', ->
-  gulp.src(paths.styles)
+gulp.task 'less', ->
+  gulp.src(paths.src.less)
   .pipe(sourcemaps.init())
   .pipe(less(paths: paths.bower)).on('error', gutil.log)
   .pipe(prefix())
   .pipe(minifyCSS())
   .pipe(sourcemaps.write())
-  .pipe(gulp.dest('public/css'))
+  .pipe(gulp.dest(paths.dest.css))
+
+gulp.task 'css', ->
+  gulp.src(paths.src.css)
+  .pipe(prefix())
+  .pipe(minifyCSS())
+  .pipe(concat('lib.css'))
+  .pipe(gulp.dest(paths.dest.css))
 
 gulp.task 'lint', ->
-  gulp.src(paths.coffee)
+  gulp.src(paths.src.coffee)
   .pipe(coffelint())
   .pipe(coffelint.reporter())
 
@@ -53,12 +69,12 @@ gulp.task 'node-inspector', ->
 gulp.task 'seed', shell.task 'node_modules/.bin/coffee ./config/seed.coffee'
 
 gulp.task 'watch', ->
-  gulp.watch(paths.styles, ['style'])
-  gulp.watch(paths.coffee, ['lint'])
+  gulp.watch(paths.src.less, ['less'])
+  gulp.watch(paths.src.coffee, ['lint'])
 
 gulp.task 'clean', ->
   del('public')
 
-gulp.task 'build', ['clean', 'style', 'js']
+gulp.task 'build', ['clean', 'less', 'css', 'js']
 
 gulp.task 'default', ['build', 'lint', 'node-inspector', 'server', 'watch']
