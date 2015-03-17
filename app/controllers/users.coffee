@@ -10,7 +10,14 @@ module.exports = (app) ->
         res.render 'users/index', users: users
 
   new: (req, res) ->
-    res.render 'users/new'
+    app.models.city
+    .find()
+    .sort('name')
+    .exec (err, cities) ->
+      if err
+        next err
+      else
+        res.render 'users/new', cities: cities
 
   create: (passport) ->
     passport.authenticate 'local-signup',

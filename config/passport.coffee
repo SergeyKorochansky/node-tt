@@ -41,6 +41,7 @@ module.exports = (userModel, passport) ->
         password: password
         firstName: req.body.firstName
         lastName: req.body.lastName
+        city: req.body.cityId
       .then (user) ->
           done(null, user)
       .catch (err) ->
