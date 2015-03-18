@@ -23,6 +23,7 @@ paths = {
     ]
     js: [
       'bower_components/jquery/dist/jquery.min.js'
+      'bower_components/bootstrap/js/alert.js'
       'bower_components/bootstrap/js/collapse.js'
       'bower_components/bootstrap/js/transition.js'
       'bower_components/select2/select2.min.js'

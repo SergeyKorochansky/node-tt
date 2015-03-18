@@ -1,0 +1,9 @@
+#flash.text-center
+  for array, type in messages
+    if type == 'error'
+      - type = 'danger'
+    for message in array
+      .alert.alert-dismissible(role='alert' class='alert-' + type)
+        button.close(data-dismiss='alert' aria-label='Close')
+          span(aria-hidden='true') ×
+        p= message
