@@ -21,9 +21,6 @@ module.exports = (app) ->
 
   create: (passport) ->
     passport.authenticate 'local-signup', successRedirect: '/'
-      successRedirect: '/'
-      failureRedirect: 'back'
-      failureFlash: true
 
   edit: (req, res, next) ->
     app.models.city
@@ -36,7 +33,27 @@ module.exports = (app) ->
         res.render 'users/edit', cities: cities
 
   update: (req, res, next) ->
-    next req, res
+    app.models.user
+    .findOneById(req.params.id)
+    .exec (err, user) ->
+      if err || !user
+        next err
+      else
+        attributes = {}
+        attributes.email = req.body.email.toLowerCase() if req.body.email
+        attributes.password = req.body.password if req.body.password
+        attributes.firstName = req.body.firstName if req.body.firstName
+        attributes.lastName = req.body.lastName if req.body.lastName
+        attributes.city = req.body.city if req.body.city
+
+        app.models.user
+        .update(req.params.id, attributes)
+        .exec (err, users) ->
+          if err || !users
+            next err
+          else
+            req.flash 'success', 'User\'s information was successful updated'
+            res.redirect '/'
 
   destroy: (req, res, next) ->
     app.models.user
