@@ -5,7 +5,8 @@ module.exports =
 
   validationError: (err, req, res, next) ->
     if err.code == 'E_VALIDATION'
-      req.flash 'error', err.reason
+      keys = Object.keys(err.invalidAttributes).join ', '
+      req.flash 'error', "#{err.reason}: #{keys}"
       res.redirect 'back'
     else
       next err
