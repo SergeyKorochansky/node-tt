@@ -39,17 +39,14 @@ module.exports = (app) ->
       if err || !user
         next err
       else
-        attributes = {}
-        attributes.email = req.body.email.toLowerCase() if req.body.email
-        attributes.password = req.body.password if req.body.password
-        attributes.firstName = req.body.firstName if req.body.firstName
-        attributes.lastName = req.body.lastName if req.body.lastName
-        attributes.city = req.body.city if req.body.city
+        user.email = req.body.email.toLowerCase() if req.body.email?
+        user.password = req.body.password if req.body.password
+        user.firstName = req.body.firstName if req.body.firstName
+        user.lastName = req.body.lastName if req.body.lastName
+        user.city = req.body.city if req.body.city
 
-        app.models.user
-        .update(req.params.id, attributes)
-        .exec (err, users) ->
-          if err || !users
+        user.save (err, user) ->
+          if err || !user
             next err
           else
             req.flash 'success', 'User\'s information was successful updated'
