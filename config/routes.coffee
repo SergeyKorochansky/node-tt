@@ -21,6 +21,9 @@ module.exports = (app, passport) ->
   app.all '*', setLocals
 
   app.get '/', app.controllers.home.index
+
+  app.get '/profile', app.controllers.users.edit
+
   app.post '/logout', app.controllers.sessions.destroy
 
   app.get '/cities', app.controllers.cities.index

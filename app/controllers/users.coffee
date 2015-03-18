@@ -25,7 +25,16 @@ module.exports = (app) ->
       failureRedirect: 'back'
       failureFlash: true
 
-# TODO Allow only role changing
+  edit: (req, res, next) ->
+    app.models.city
+    .find()
+    .sort('name')
+    .exec (err, cities) ->
+      if err
+        next err
+      else
+        res.render 'users/edit', cities: cities
+
   update: (req, res, next) ->
     next req, res
 

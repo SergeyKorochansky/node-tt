@@ -1,0 +1,38 @@
+extends ../layouts/default
+block title
+  title Profile
+block link
+  - var selected = 'Profile'
+block content
+  .col-md-4
+  .col-md-4.text-center
+    h2 Edit profile
+    form.form-horizontal(role='form' method='post' action="/users/#{user.id}")
+      input(type='hidden' name='_method' value='patch')
+      .form-group
+        label.col-sm-4.control-label(for='inputEmail') Email
+        .col-sm-8
+          input#inputEmail.form-control(name='email' type='email' placeholder='Email' value=user.email required autofocus maxlength='100' title='Maximal length is 100 chars')
+      .form-group
+        label.col-sm-4.control-label(for='inputPassword') Password
+        .col-sm-8
+          input#inputPassword.form-control(name='password' type='password' placeholder='Password' pattern='.{6,}' title='Minimal length is 6 chars')
+
+      .form-group
+        label.col-sm-4.control-label(for='inputFirstName') First name
+        .col-sm-8
+          input#inputFirstName.form-control(name='firstName' type='text' placeholder='First Name' value=user.firstName required maxlength='100' pattern='.{3,100}' title='Length should be from 3 to 100 chars')
+      .form-group
+        label.col-sm-4.control-label(for='inputLastName') Last name
+        .col-sm-8
+          input#inputLastName.form-control(name='lastName' type='text' placeholder='Last name' value=user.lastName required maxlength='100' pattern='.{3,100}' title='Length should be from 3 to 100 chars')
+      .form-group
+        label.col-sm-4.control-label(for='inputCity') City
+        .col-sm-8
+          select.form-control(name='city')
+            option
+            for city in cities
+              - var isSelected = (city.id == user.city)
+              option(value=city.id selected=isSelected)=city.name
+      .form-group
+        button.btn.btn-success(type='submit') Save

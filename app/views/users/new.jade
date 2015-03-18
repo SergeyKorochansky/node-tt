@@ -9,7 +9,7 @@ block content
       input.form-control(name='password' type='password' placeholder='Password' required pattern='.{6,}' title='Minimal length is 6 chars')
       input.form-control(name='firstName' type='text' placeholder='First name' required maxlength='100' pattern='.{3,100}' title='Length should be from 3 to 100 chars')
       input.form-control(name='lastName' type='text' placeholder='Last name' required maxlength='100' pattern='.{3,100}' title='Length should be from 3 to 100 chars')
-      select.form-control(name='cityId')
+      select.form-control(name='city')
         option City
         for city in cities
           option(value=city.id)=city.name
