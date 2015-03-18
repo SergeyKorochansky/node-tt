@@ -66,17 +66,10 @@ module.exports =
   beforeUpdate: generateHash
 
   customCallbacks:
-    beforeValidate: (self) ->
+    beforeValidate: (User) ->
       (values, next) ->
-        self
+        User
         .findOneByEmail(values.email)
         .exec (err, user) ->
-          isValid = false
-
-          if !user
-            isValid = true
-          else if values.id? && user.id == values.id
-            isValid = true
-
-          global.uniqueEmail = isValid
+          global.uniqueEmail = !err && (!user || values.id == user.id)
           next()
