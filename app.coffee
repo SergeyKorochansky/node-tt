@@ -2,17 +2,19 @@ express = require 'express'
 passport = require 'passport'
 waterline = require 'waterline'
 config = require './config/config'
+models = require './config/models'
 
 app = express()
 orm = new waterline()
 
-require('./config/models')(orm)
+models.initialize(orm)
 
-orm.initialize config.db, (err, models) ->
+orm.initialize config.db, (err, data) ->
   throw err if err
 
-  app.models = models.collections
-  app.connections = models.connections
+  app.models = models.initializeHooks(data.collections)
+  app.connections = data.connections
+
   app.controllers = require('./config/controllers')(app)
   app.middlewares = require('./config/middlewares')()
 
