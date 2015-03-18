@@ -20,11 +20,17 @@ module.exports =
   connection: 'default'
   autoCreatedAt: true
   autoUpdatedAt: true
+  uniqueEmail: false
+  types:
+    uniqueEmail: ->
+      global.uniqueEmail
+
   attributes:
     email:
       type: 'email'
       required: true
       unique: true
+      uniqueEmail: true
       lowercase: true
       maxLength: 100
     password:
@@ -58,3 +64,19 @@ module.exports =
 #      via: 'users'
   beforeCreate: generateHash
   beforeUpdate: generateHash
+
+  customCallbacks:
+    beforeValidate: (self) ->
+      (values, next) ->
+        self
+        .findOneByEmail(values.email)
+        .exec (err, user) ->
+          isValid = false
+
+          if !user
+            isValid = true
+          else if values.id? && user.id == values.id
+            isValid = true
+
+          global.uniqueEmail = isValid
+          next()

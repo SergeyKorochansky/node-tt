@@ -20,7 +20,7 @@ module.exports = (app) ->
         res.render 'users/new', cities: cities
 
   create: (passport) ->
-    passport.authenticate 'local-signup',
+    passport.authenticate 'local-signup', successRedirect: '/'
       successRedirect: '/'
       failureRedirect: 'back'
       failureFlash: true
