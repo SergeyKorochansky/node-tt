@@ -7,6 +7,7 @@ concat = require 'gulp-concat'
 uglify = require 'gulp-uglify'
 coffelint = require 'gulp-coffeelint'
 nodemon = require 'gulp-nodemon'
+browserSync = require 'browser-sync'
 gutil = require 'gulp-util'
 del = require 'del'
 shell = require 'gulp-shell'
@@ -60,10 +61,37 @@ gulp.task 'lint', ->
   .pipe(coffelint())
   .pipe(coffelint.reporter())
 
-gulp.task 'server', ->
-  nodemon '-w app -w app.coffee -e coffee,jade --debug app.coffee'
+gulp.task 'browser-sync', ['server'], ->
+  browserSync
+    proxy: 'http://localhost:3000'
+    files: ['public/**/*.*']
+    browser: 'google-chrome'
+    port: 7000
 
-gulp.task 'node-inspector', ->
+gulp.task 'server', (cb) ->
+  called = false
+  nodemon [
+    '--debug'
+    '--verbose'
+    'app.coffee'
+    '--watch app/'
+    '--watch config/'
+    '--watch app.coffee'
+    '--ext coffee,jade'
+    '--ignore public/'
+    '--ignore .idea/'
+    '--ignore *___jb*'
+  ].join ' '
+  .on 'start',  ->
+    unless called
+      called = true
+      cb()
+  .on 'restart', ->
+    setTimeout ->
+      browserSync.reload()
+    , 1500
+
+gulp.task 'debugger', ->
   gulp.src([])
   .pipe(nodeInspector())
 
@@ -78,4 +106,4 @@ gulp.task 'clean', ->
 
 gulp.task 'build', ['clean', 'less', 'css', 'js']
 
-gulp.task 'default', ['build', 'lint', 'node-inspector', 'server', 'watch']
+gulp.task 'default', ['build', 'lint', 'debugger', 'browser-sync', 'watch']
