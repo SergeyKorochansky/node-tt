@@ -111,4 +111,4 @@ public/
 # sftp configuration file
 sftp-config.json
 
-
+build/

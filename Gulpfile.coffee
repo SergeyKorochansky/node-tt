@@ -1,8 +1,10 @@
 gulp = require 'gulp'
 sourcemaps = require 'gulp-sourcemaps'
+coffee = require 'gulp-coffee'
 less = require 'gulp-less'
 prefix = require 'gulp-autoprefixer'
 minifyCSS = require 'gulp-minify-css'
+urlAdjuster = require 'gulp-css-url-adjuster'
 concat = require 'gulp-concat'
 uglify = require 'gulp-uglify'
 coffelint = require 'gulp-coffeelint'
@@ -16,32 +18,70 @@ nodeInspector = require 'gulp-node-inspector'
 paths = {
   bower: ['bower_components']
   src:
-    less: ['app/assets/styles/**/*.less']
-    coffee: ['app/**/*.coffee', 'Gulpfile.coffee']
-    css: [
-      'bower_components/select2/select2.css'
-      'bower_components/select2/select2-bootstrap.css'
-    ]
-    js: [
-      'bower_components/jquery/dist/jquery.min.js'
-      'bower_components/bootstrap/js/alert.js'
-      'bower_components/bootstrap/js/collapse.js'
-      'bower_components/bootstrap/js/transition.js'
-      'bower_components/select2/select2.min.js'
-    ]
+    app:
+      coffee: [
+        'app/**/*.coffee'
+        'config/**/*.coffee'
+        'app.coffee'
+      ]
+      jade: 'app/views/**/*.jade'
+    assets:
+      coffee: 'app/assets/scripts/**/*.coffee'
+      less: 'app/assets/styles/**/*.less'
+      css: [
+        'bower_components/select2/select2.css'
+        'bower_components/select2/select2-bootstrap.css'
+      ]
+      js: [
+        'bower_components/jquery/dist/jquery.min.js'
+        'bower_components/bootstrap/js/alert.js'
+        'bower_components/bootstrap/js/collapse.js'
+        'bower_components/bootstrap/js/transition.js'
+        'bower_components/select2/select2.min.js'
+      ]
+      img: [
+        'bower_components/select2/select2.png'
+        'bower_components/select2/select2x2.png'
+        'bower_components/select2/select2-spinner.gif'
+      ]
   dest:
-    css: 'public/css'
-    js: 'public/js'
+    css: 'build/public/css'
+    js: 'build/public/js'
+    img: 'build/public/img'
+    app: 'build/'
 }
 
-gulp.task 'js', ->
-  gulp.src(paths.src.js)
+gulp.task 'app-coffee', ['app-lint'], (cb) ->
+  gulp.src(paths.src.app.coffee, base: '.')
+  .pipe(sourcemaps.init(sourceRoot: '../'))
+  .pipe(coffee(bare: true).on('error', gutil.log))
+  .pipe(sourcemaps.write('./'))
+  .pipe(gulp.dest(paths.dest.app))
+  cb()
+
+gulp.task 'templates', ->
+  gulp.src(paths.src.app.jade, base: '.')
+  .pipe(gulp.dest(paths.dest.app))
+
+gulp.task 'assets-coffee', ['assets-lint'], ->
+  gulp.src(paths.src.assets.coffee)
+  .pipe(coffee().on('error', gutil.log))
   .pipe(uglify())
   .pipe(concat('default.js'))
   .pipe(gulp.dest(paths.dest.js))
 
+gulp.task 'js', ->
+  gulp.src(paths.src.assets.js)
+  .pipe(uglify())
+  .pipe(concat('lib.js'))
+  .pipe(gulp.dest(paths.dest.js))
+
+gulp.task 'img', ->
+  gulp.src(paths.src.assets.img)
+  .pipe(gulp.dest(paths.dest.img))
+
 gulp.task 'less', ->
-  gulp.src(paths.src.less)
+  gulp.src(paths.src.assets.less)
   .pipe(sourcemaps.init())
   .pipe(less(paths: paths.bower)).on('error', gutil.log)
   .pipe(prefix())
@@ -50,14 +90,20 @@ gulp.task 'less', ->
   .pipe(gulp.dest(paths.dest.css))
 
 gulp.task 'css', ->
-  gulp.src(paths.src.css)
+  gulp.src(paths.src.assets.css)
+  .pipe(urlAdjuster(prepend: '/img/'))
   .pipe(prefix())
   .pipe(minifyCSS())
   .pipe(concat('lib.css'))
   .pipe(gulp.dest(paths.dest.css))
 
-gulp.task 'lint', ->
-  gulp.src(paths.src.coffee)
+gulp.task 'app-lint', ->
+  gulp.src(paths.src.app.coffee)
+  .pipe(coffelint())
+  .pipe(coffelint.reporter())
+
+gulp.task 'assets-lint', ->
+  gulp.src(paths.src.assets.coffee)
   .pipe(coffelint())
   .pipe(coffelint.reporter())
 
@@ -68,42 +114,49 @@ gulp.task 'browser-sync', ['server'], ->
     browser: 'google-chrome'
     port: 7000
 
-gulp.task 'server', (cb) ->
+gulp.task 'server', ['app-coffee', 'templates'], (cb) ->
   called = false
   nodemon [
     '--debug'
-    '--verbose'
-    'app.coffee'
-    '--watch app/'
-    '--watch config/'
-    '--watch app.coffee'
-    '--ext coffee,jade'
-    '--ignore public/'
+    'build/app.js'
+    '--watch build/'
+    '--ignore build/public/'
+    '--ignore app/'
+    '--ignore config/'
     '--ignore .idea/'
-    '--ignore *___jb*'
+    '--ignore .git/'
+    '--ignore node_modules/'
+    '--ignore bower_components/'
+    '--ext js,jade'
   ].join ' '
-  .on 'start',  ->
-    unless called
-      called = true
-      cb()
+  .on 'start', ->
+    setTimeout ->
+      unless called
+        called = true
+        cb()
+    , 3000
+
   .on 'restart', ->
     setTimeout ->
       browserSync.reload()
     , 1500
 
 gulp.task 'debugger', ->
-  gulp.src([])
-  .pipe(nodeInspector())
+  nodeInspector()
 
 gulp.task 'seed', shell.task 'node_modules/.bin/coffee ./config/seed.coffee'
 
 gulp.task 'watch', ->
-  gulp.watch(paths.src.less, ['less'])
-  gulp.watch(paths.src.coffee, ['lint'])
+  gulp.watch(paths.src.assets.less, ['less'])
+  gulp.watch(paths.src.assets.coffee, ['assets-coffee'])
+  gulp.watch(paths.src.app.coffee, ['app-coffee'])
+  gulp.watch(paths.src.app.coffee, ['templates'])
 
 gulp.task 'clean', ->
-  del('public')
+  del('build')
 
-gulp.task 'build', ['clean', 'less', 'css', 'js']
+commonTasks = ['clean', 'css', 'js', 'less', 'img', 'assets-coffee']
 
-gulp.task 'default', ['build', 'lint', 'debugger', 'browser-sync', 'watch']
+gulp.task 'build', commonTasks.concat ['app-coffee', 'templates']
+
+gulp.task 'default', commonTasks.concat ['browser-sync', 'watch', 'debugger']

@@ -4,6 +4,6 @@ config = require './config'
 module.exports = (app) ->
   requireAll
     dirname: config.controllers
-    filter: /(.+)\.coffee$/
+    filter: /(.+)\.js$/
     resolve: (controller) ->
       new controller(app)

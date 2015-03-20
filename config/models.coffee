@@ -6,14 +6,14 @@ module.exports =
   initialize: (orm) ->
     requireAll
       dirname: config.models
-      filter: /\.coffee$/
+      filter: /\.js$/
       resolve: (model) ->
         collection = waterline.Collection.extend model
         orm.loadCollection collection
   initializeHooks: (collections) ->
     requireAll
       dirname: config.models
-      filter: /\.coffee$/
+      filter: /\.js$/
       resolve: (model) ->
         if model.customCallbacks?
           for type, callback of model.customCallbacks

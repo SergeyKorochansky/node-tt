@@ -17,7 +17,7 @@
   "scripts": {
     "postinstall": "npm run build",
     "build": "node_modules/.bin/gulp build",
-    "start": "node_modules/.bin/coffee app.coffee",
+    "start": "npm run build && cd build && node app.js",
     "test": "mocha"
   },
   "engines": {
@@ -46,6 +46,7 @@
     "gulp-coffee": "^2.3.1",
     "gulp-coffeelint": "^0.4.0",
     "gulp-concat": "^2.5.2",
+    "gulp-css-url-adjuster": "^0.2.3",
     "gulp-less": "^3.0.0",
     "gulp-minify-css": "^0.4.6",
     "gulp-node-inspector": "0.0.3",
