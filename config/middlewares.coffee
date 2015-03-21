@@ -4,4 +4,4 @@ config = require './config'
 module.exports = ->
   requireAll
     dirname: config.middlewares
-    filter: /(.+)\.js$/
+    filter: /(.+)\.(js|coffee)$/
