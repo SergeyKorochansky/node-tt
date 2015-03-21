@@ -45,13 +45,13 @@ paths = {
         'bower_components/select2/select2-spinner.gif'
       ]
   dest:
+    app: 'build/'
     css: 'build/public/css'
     js: 'build/public/js'
     img: 'build/public/img'
-    app: 'build/'
 }
 
-gulp.task 'app-coffee', ['app-lint'], (cb) ->
+gulp.task 'app-coffee', ['clean', 'app-lint'], (cb) ->
   gulp.src(paths.src.app.coffee, base: '.')
   .pipe(sourcemaps.init(sourceRoot: '../'))
   .pipe(coffee(bare: true).on('error', gutil.log))
@@ -59,28 +59,28 @@ gulp.task 'app-coffee', ['app-lint'], (cb) ->
   .pipe(gulp.dest(paths.dest.app))
   cb()
 
-gulp.task 'templates', ->
+gulp.task 'templates', ['clean'], ->
   gulp.src(paths.src.app.jade, base: '.')
   .pipe(gulp.dest(paths.dest.app))
 
-gulp.task 'assets-coffee', ['assets-lint'], ->
+gulp.task 'assets-coffee', ['clean', 'assets-lint'], ->
   gulp.src(paths.src.assets.coffee)
   .pipe(coffee().on('error', gutil.log))
   .pipe(uglify())
   .pipe(concat('default.js'))
   .pipe(gulp.dest(paths.dest.js))
 
-gulp.task 'js', ->
+gulp.task 'js', ['clean'], ->
   gulp.src(paths.src.assets.js)
   .pipe(uglify())
   .pipe(concat('lib.js'))
   .pipe(gulp.dest(paths.dest.js))
 
-gulp.task 'img', ->
+gulp.task 'img', ['clean'], ->
   gulp.src(paths.src.assets.img)
   .pipe(gulp.dest(paths.dest.img))
 
-gulp.task 'less', ->
+gulp.task 'less', ['clean'], ->
   gulp.src(paths.src.assets.less)
   .pipe(sourcemaps.init())
   .pipe(less(paths: paths.bower)).on('error', gutil.log)
@@ -89,7 +89,7 @@ gulp.task 'less', ->
   .pipe(sourcemaps.write())
   .pipe(gulp.dest(paths.dest.css))
 
-gulp.task 'css', ->
+gulp.task 'css', ['clean'], ->
   gulp.src(paths.src.assets.css)
   .pipe(urlAdjuster(prepend: '/img/'))
   .pipe(prefix())
@@ -147,15 +147,15 @@ gulp.task 'debugger', ->
 gulp.task 'seed', shell.task 'node_modules/.bin/coffee ./config/seed.coffee'
 
 gulp.task 'watch', ->
-  gulp.watch(paths.src.assets.less, ['less'])
-  gulp.watch(paths.src.assets.coffee, ['assets-coffee'])
   gulp.watch(paths.src.app.coffee, ['app-coffee'])
-  gulp.watch(paths.src.app.coffee, ['templates'])
+  gulp.watch(paths.src.app.jade, ['templates'])
+  gulp.watch(paths.src.assets.coffee, ['assets-coffee'])
+  gulp.watch(paths.src.assets.less, ['less'])
 
-gulp.task 'clean', ->
-  del('build')
+gulp.task 'clean', (cb) ->
+  del('build', cb)
 
-commonTasks = ['clean', 'css', 'js', 'less', 'img', 'assets-coffee']
+commonTasks = ['css', 'js', 'less', 'img', 'assets-coffee']
 
 gulp.task 'build', commonTasks.concat ['app-coffee', 'templates']
 
