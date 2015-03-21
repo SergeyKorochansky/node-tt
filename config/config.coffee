@@ -9,11 +9,11 @@ rootPath = path.normalize(__dirname + '/..')
 
 settings =
   root: rootPath
-  controllers: rootPath + '/app/controllers'
-  models: rootPath + '/app/models'
-  views: rootPath + '/app/views'
-  middlewares: rootPath + '/app/middlewares'
-  static: rootPath + '/public'
+  controllers: "#{rootPath}/app/controllers"
+  models: "#{rootPath}/app/models"
+  middlewares: "#{rootPath}/app/middlewares"
+  views: "#{rootPath}/app/views/"
+  static: "#{rootPath}/public"
 
   server:
     port: '3000'
