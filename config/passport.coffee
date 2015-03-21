@@ -36,12 +36,12 @@ module.exports = (userModel, passport) ->
   localSignUp = (req, email, password, done) ->
     userModel
     .create
-        email: email.toLowerCase()
-        password: password
-        firstName: req.body.firstName
-        lastName: req.body.lastName
-        city: req.body.city
+      email: email.toLowerCase()
+      password: password
+      firstName: req.body.firstName
+      lastName: req.body.lastName
+      city: req.body.city
     .exec (err, user) ->
-      done(err, user)
+        done(err, user)
 
   passport.use('local-signup', new LocalStrategy(signupParams, localSignUp))
