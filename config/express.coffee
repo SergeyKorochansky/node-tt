@@ -1,6 +1,7 @@
 express = require 'express'
 session = require 'express-session'
 compression = require 'compression'
+gzipStatic = require 'connect-gzip-static'
 morgan = require 'morgan'
 cookieParser = require 'cookie-parser'
 cookieSession = require 'cookie-session'
@@ -15,7 +16,7 @@ config = require './config'
 
 module.exports = (app, passport) ->
   app.use(compression())
-  app.use(express.static(config.static))
+  app.use(gzipStatic(config.static))
   app.use(morgan('dev'))
   app.set('view engine', 'jade')
   app.set('views', config.views)
