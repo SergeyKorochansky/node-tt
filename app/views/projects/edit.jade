@@ -1,12 +1,12 @@
 extends ../layouts/default
 block title
-  title Create new project
+  title Edit project #{project.name}
 block link
   - var selected = 'Projects'
 block content
   .col-md-4
   .col-md-4.text-center
-    h2 Create project
+    h2 Edit project
     form.form-horizontal(role='form' method='post' action="/projects/#{project.id}")
       input(type='hidden' name='_method' value='patch')
       .form-group
