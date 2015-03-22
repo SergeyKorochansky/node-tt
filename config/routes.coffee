@@ -45,6 +45,14 @@ module.exports = (app, passport) ->
   app.patch '/projects/:id', app.controllers.projects.update
   app.delete '/projects/:id', app.controllers.projects.destroy
 
+  app.get '/milestones', app.controllers.milestones.index
+  app.get '/milestones/new', app.controllers.milestones.new
+  app.post '/milestones', app.controllers.milestones.create
+  app.get '/milestones/:id', app.controllers.milestones.show
+  app.get '/milestones/:id/edit', app.controllers.milestones.edit
+  app.patch '/milestones/:id', app.controllers.milestones.update
+  app.delete '/milestones/:id', app.controllers.milestones.destroy
+
   app.use errorHandlers.notFound
   app.use errorHandlers.validationError
   app.use errorHandlers.internalError
