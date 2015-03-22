@@ -15,4 +15,6 @@ module.exports =
       collection: 'user'
       via: 'projects'
       dominant: true
-#      dominant: true
+    milestones:
+      collection: 'milestone'
+      via: 'project'
