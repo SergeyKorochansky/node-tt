@@ -16,3 +16,7 @@ module.exports =
       type: 'integer'
     project:
       model: 'project'
+      required: true
+    notes:
+      collection: 'note'
+      via: 'milestone'
