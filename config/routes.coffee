@@ -45,7 +45,6 @@ module.exports = (app, passport) ->
   app.patch '/projects/:id', app.controllers.projects.update
   app.delete '/projects/:id', app.controllers.projects.destroy
 
-  app.get '/milestones', app.controllers.milestones.index
   app.get '/milestones/new', app.controllers.milestones.new
   app.post '/milestones', app.controllers.milestones.create
   app.get '/milestones/:id', app.controllers.milestones.show
