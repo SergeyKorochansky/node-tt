@@ -15,9 +15,9 @@
   },
   "main": "app.js",
   "scripts": {
-    "postinstall": "npm run build",
+    "postinstall": "./node_modules/bower/bin/bower install && npm run build",
     "build": "node_modules/.bin/gulp build",
-    "start": "npm run build && cd build && node app.js",
+    "start": "node build/app.js",
     "test": "mocha"
   },
   "engines": {
