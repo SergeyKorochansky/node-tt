@@ -5,8 +5,8 @@ block link
   - var selected = 'Profile'
 block content
   .col-md-4
-  .col-md-4.text-center
-    h2 Edit profile
+  .col-md-4
+    h2.text-center Edit profile
     form.form-horizontal(role='form' method='post' action="/users/#{user.id}")
       input(type='hidden' name='_method' value='patch')
       .form-group
@@ -34,5 +34,5 @@ block content
             for city in cities
               - var isSelected = (city.id == user.city)
               option(value=city.id selected=isSelected)=city.name
-      .form-group
+      .form-group.text-center
         button.btn.btn-success(type='submit') Save
