@@ -37,6 +37,14 @@ module.exports = (app, passport) ->
   app.patch '/users/:id', app.controllers.users.update
   app.delete '/users/:id', app.controllers.users.destroy
 
+  app.get '/projects/', app.controllers.projects.index
+  app.get '/projects/new', app.controllers.projects.new
+  app.post '/projects/', app.controllers.projects.create
+  app.get '/projects/:id', app.controllers.projects.show
+  app.get '/projects/:id/edit', app.controllers.projects.edit
+  app.patch '/projects/:id', app.controllers.projects.update
+  app.delete '/projects/:id', app.controllers.projects.destroy
+
   app.use errorHandlers.notFound
   app.use errorHandlers.validationError
   app.use errorHandlers.internalError
