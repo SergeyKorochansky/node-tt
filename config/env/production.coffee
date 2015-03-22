@@ -19,5 +19,4 @@ module.exports =
     password: '029c4266ce20c2724188c094a111f123'
 
   server:
-    host: '127.0.0.1'
     port: process.env.PORT
