@@ -1,0 +1,21 @@
+extends ../layouts/default
+block title
+  title Create new project
+block link
+  - var selected = 'Projects'
+block content
+  .col-md-4
+  .col-md-4.text-center
+    h2 Create project
+    form.form-horizontal(role='form' method='post' action='/projects')
+      .form-group
+        label.col-sm-4.control-label(for='inputName') Name
+        .col-sm-8
+          input#inputName.form-control(name='name' type='text' placeholder='Name' required autofocus maxlength='100' title='Maximal length is 100 chars')
+      .form-group
+        label.col-sm-4.control-label(for='inputDescription') Description
+        .col-sm-8
+          textarea#inputDescritption.form-control(name='description' rows='3' placeholder='Description' required autofocus maxlength='10000' title='Maximal length is 10 000 chars')
+      // TODO Add users tagging
+      .text-center
+        button.btn.btn-success(type='submit') Create
