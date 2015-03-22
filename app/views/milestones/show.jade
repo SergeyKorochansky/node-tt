@@ -1,0 +1,30 @@
+extends ../layouts/default
+block title
+  title=milestone.name
+block link
+  - var selected = 'Projects'
+block content
+  .col-md-3
+  .col-md-6
+    .text-center
+      h3 Project: #{milestone.project.name}
+      h3 Milestone: #{milestone.name}
+      .progress
+        .progress-bar.progress-bar-success.progress-bar-striped.active(role='progressbar', aria-valuenow=milestone.complete, aria-valuemin='0', aria-valuemax='100', style="width: #{milestone.complete}%;")
+          span Progress: #{milestone.complete}%
+
+      form(method='post')
+        input(type='hidden' name='_method' value='delete')
+        .form-group
+          a.btn.btn-default(role='button' href="/milestones/#{milestone.id}/edit") Edit milestone
+        .form-group
+          button.btn.btn-danger(type='submit') Delete
+      hr
+
+      h4 Notes
+      ul.list-unstyled: for note in milestone.notes
+        li: a(href="/notes/#{note.id}")= note.name
+
+      .text-center(role='toolbar')
+        a.btn.btn-success(role='button' href="/notes/new?milestone=#{milestone.id}") Add new note
+
