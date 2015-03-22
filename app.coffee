@@ -23,4 +23,7 @@ orm.initialize config.db, (err, data) ->
   require('./config/controllers')(app)
   require('./config/routes')(app, passport)
 
+  console.log config
+  console.log process.env
+
   app.listen(config.server.port, config.server.hostname)
