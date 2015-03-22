@@ -19,4 +19,4 @@ module.exports =
     password: '029c4266ce20c2724188c094a111f123'
 
   server:
-    port: process.env.PORT
+    port: parseInt(process.env.PORT, 10)
