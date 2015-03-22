@@ -25,10 +25,12 @@ block content
       hr
 
       h4 Milestones
-        dd: ul: for milestone in project.milestones
+        dd: ul.list-unstyled: for milestone in project.milestones
           li
             a(href="/milestones/#{milestone.id}")= milestone.name
-            #{milestone.complete} % complete
-            Number: #{milestone.number}
+            br
+            |  #{milestone.complete} % complete
+            br
+            | Number: #{milestone.number}
       .text-center(role='toolbar')
-        a.btn.btn-success(role='button' href="/milestone/new?project=#{project.id}") Add new milestone
+        a.btn.btn-success(role='button' href="/milestones/new?project=#{project.id}") Add new milestone
