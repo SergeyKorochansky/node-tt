@@ -1,0 +1,25 @@
+extends ../layouts/default
+block title
+  title Edit milestone #{milestone.name}
+block link
+  - var selected = 'Projects'
+block content
+  .col-md-4
+  .col-md-4.text-center
+    h2 Edit milestone
+    form.form-horizontal(role='form' method='post' action="/milestones/#{milestone.id}")
+      input(type='hidden' name='_method' value='patch')
+      .form-group
+        label.col-sm-4.control-label(for='inputName') Name
+        .col-sm-8
+          input#inputName.form-control(name='name' type='text' value=milestone.name placeholder='Name' required autofocus maxlength='100' title='Maximal length is 100 chars')
+      .form-group
+        label.col-sm-4.control-label(for='inputDescription') Complete
+        .col-sm-8
+          input#inputComplete.form-control(type='number' name='complete' value=milestone.complete placeholder='Complete' min='0' max='100' title='Range is from 0 to 100')
+      .form-group
+        label.col-sm-4.control-label(for='inputNumber') Number
+        .col-sm-8
+          input#inputComplete.form-control(type='number' name='number' value=milestone.number placeholder='Number' min='0' max='1000000' title='Range is from 0 to 1 000 000')
+      .text-center
+        button.btn.btn-success(type='submit') Save
