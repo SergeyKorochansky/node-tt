@@ -1,15 +1,4 @@
 module.exports = (app) ->
-#  TODO Move this check to model's lifecycle callback
-  checkCityForUniqueness = (req, res, cb) ->
-    app.models.city
-    .findOneByName(req.body.name)
-    .exec (err, nonUniqueCity) ->
-      if nonUniqueCity
-        req.flash 'error', 'City with same name already exists'
-        res.redirect 'back'
-      else
-        cb()
-
   index: (req, res, next) ->
     app.models.city.find().exec (err, cities) ->
       if err || !cities
@@ -20,15 +9,14 @@ module.exports = (app) ->
     res.render 'cities/new'
 
   create: (req, res, next) ->
-    checkCityForUniqueness req, res, ->
-      app.models.city
-      .create(name: req.body.name)
-      .exec (err, city) ->
-        if err || !city
-          next err
-        else
-          req.flash 'success', "City #{city.name} was created"
-          res.redirect '/cities'
+    app.models.city
+    .create(name: req.body.name)
+    .exec (err, city) ->
+      if err || !city
+        next err
+      else
+        req.flash 'success', "City #{city.name} was created"
+        res.redirect '/cities'
 
   edit: (req, res, next) ->
     app.models.city
@@ -40,15 +28,21 @@ module.exports = (app) ->
         res.render 'cities/edit', city: city
 
   update: (req, res, next) ->
-    checkCityForUniqueness req, res, ->
-      app.models.city
-      .update(req.params.id, name: req.body.name)
-      .exec (err, cities) ->
-        if err || !cities
-          next err
-        else
-          req.flash 'success', "City #{cities[0].name} was updated"
-          res.redirect '/cities'
+    app.models.city
+    .findOneById(req.params.id)
+#    .update(req.params.id, name: req.body.name)
+    .exec (err, city) ->
+      if err || !city
+        next err
+      else
+        city.name = req.body.name if req.body.name?
+
+        city.save (err, city) ->
+          if err ||!city
+            next err
+          else
+            req.flash 'success', "City #{city.name} was updated"
+            res.redirect '/cities'
 
   destroy: (req, res, next) ->
     app.models.city
