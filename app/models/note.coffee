@@ -13,5 +13,7 @@ module.exports =
       maxLength: 10000
     user:
       model: 'user'
+      required: true
     milestone:
       model: 'milestone'
+      required: true
