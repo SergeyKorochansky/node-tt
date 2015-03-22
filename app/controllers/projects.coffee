@@ -2,11 +2,13 @@ module.exports = (app) ->
   index: (req, res, next) ->
     app.models.project
     .find()
+    .sort('updatedAt')
     .exec (err, projects) ->
       if err || !projects
         next err
       else
         res.render 'projects/index', projects: projects
+
   new: (req, res) ->
     res.render 'projects/new'
 
@@ -33,7 +35,7 @@ module.exports = (app) ->
     app.models.project
     .findOneById(req.params.id)
     .populate('users')
-    .populate('milestones')
+    .populate('milestones', sort: 'complete desc')
     .exec (err, project) ->
       if err || !project
         next err
