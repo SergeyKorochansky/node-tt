@@ -17,3 +17,7 @@ module.exports =
   mailgun:
     user: 'postmaster@sandbox9ed13e55b9bb4706ad96ab32dafb424b.mailgun.org'
     password: '029c4266ce20c2724188c094a111f123'
+
+  server:
+    host: '127.0.0.1'
+    port: process.env.PORT
