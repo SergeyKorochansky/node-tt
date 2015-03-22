@@ -11,7 +11,8 @@ module.exports =
     description:
       type: 'string'
       maxLength: 10000
-#    users:
-#      collection: 'user'
-#      via: 'projects'
+    users:
+      collection: 'user'
+      via: 'projects'
+      dominant: true
 #      dominant: true

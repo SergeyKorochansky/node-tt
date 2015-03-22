@@ -59,9 +59,9 @@ module.exports =
     comparePasswords: comparePasswords
     fullName: ->
       "#{@firstName} #{@lastName}"
-#    projects:
-#      collection: 'project'
-#      via: 'users'
+    projects:
+      collection: 'project'
+      via: 'users'
   beforeCreate: generateHash
   beforeUpdate: generateHash
 
