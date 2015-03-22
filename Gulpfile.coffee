@@ -16,9 +16,9 @@ watch = require 'gulp-watch'
 runSequence = require 'run-sequence'
 del = require 'del'
 shell = require 'gulp-shell'
+cache = require 'gulp-cached'
 nodeInspector = require 'gulp-node-inspector'
 path = require 'path'
-config = require './config/config'
 
 root = path.resolve(__dirname)
 bower = "#{root}/bower_components"
@@ -61,6 +61,7 @@ paths = {
 
 gulp.task 'app:coffee', ->
   gulp.src(paths.src.app.coffee, base: root)
+  .pipe(cache('app:coffee'))
   .pipe(sourcemaps.init(sourceRoot: '.'))
   .pipe(coffee(bare: true).on('error', gutil.log))
   .pipe(sourcemaps.write('.'))
@@ -72,6 +73,7 @@ gulp.task 'app:jade',
 
 gulp.task 'assets:coffee', ->
   gulp.src(paths.src.assets.coffee, base: root)
+  .pipe(cache('assets:coffee'))
   .pipe(coffee().on('error', gutil.log))
   .pipe(uglify())
   .pipe(concat('default.js'))
@@ -95,6 +97,7 @@ gulp.task 'assets:img', ->
 
 gulp.task 'assets:less', ->
   gulp.src(paths.src.assets.less)
+  .pipe(cache('assets:less'))
   .pipe(less(paths: bower)).on('error', gutil.log)
   .pipe(prefix())
   .pipe(minifyCSS())
@@ -114,11 +117,13 @@ gulp.task 'assets:css', ->
 
 gulp.task 'app:lint', ->
   gulp.src(paths.src.app.coffee)
+  .pipe(cache('app:lint'))
   .pipe(coffelint())
   .pipe(coffelint.reporter())
 
 gulp.task 'assets:lint', ->
   gulp.src(paths.src.assets.coffee)
+  .pipe(cache('assets:lint'))
   .pipe(coffelint())
   .pipe(coffelint.reporter())
 
