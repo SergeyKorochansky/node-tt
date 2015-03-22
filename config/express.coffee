@@ -37,7 +37,7 @@ module.exports = (app, passport) ->
     saveUninitialized: true
     secret: config.secret
     store: new mongoStore(
-      url: config.db.url
+      url: config.db.connections.default.url
       collection: 'sessions')))
   app.use(passport.initialize())
   app.use(passport.session())
