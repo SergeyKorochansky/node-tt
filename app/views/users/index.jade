@@ -12,6 +12,8 @@ block content
           th Full Name
           th Email
           th City
+          th Created At
+          th Updated At
           th Delete
       tbody
         for user, index in users
@@ -20,6 +22,8 @@ block content
             td= user.fullName()
             td= user.email
             td= user.city ? user.city.name : ''
+            td= user.createdAt.toLocaleDateString()
+            td= user.updatedAt.toLocaleDateString()
             td: form(method='post' action="/users/#{user.id}")
               input(type='hidden' name='_method' value='delete')
               button.btn.btn-danger(type='submit') Delete
