@@ -1,0 +1,34 @@
+extends ../layouts/default
+block title
+  title=project.name
+block link
+  - var selected = 'Projects'
+block content
+  .col-md-3
+  .col-md-6
+    .text-center
+      h3 Project: #{project.name}
+      h4 Description: #{project.description}
+      a.btn.btn-default(role='button' href="/projects/#{project.id}/edit") Edit project
+
+      hr
+
+      h4 Users
+      ul.list-unstyled: for user in project.users
+        li= user.fullName()
+          |  <
+          a(href="mailto:#{user.email}") #{user.email}
+          | >
+      //  TODO add users assigning
+      a.btn.btn-default(role='button' href="#") Edit a list of users
+
+      hr
+
+      h4 Milestones
+        dd: ul: for milestone in project.milestones
+          li
+            a(href="/milestones/#{milestone.id}")= milestone.name
+            #{milestone.complete} % complete
+            Number: #{milestone.number}
+      .text-center(role='toolbar')
+        a.btn.btn-success(role='button' href="/milestone/new?project=#{project.id}") Add new milestone
