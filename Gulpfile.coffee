@@ -43,6 +43,7 @@ paths = {
         "#{bower}/jquery/dist/jquery.min.js"
         "#{bower}/bootstrap/js/alert.js"
         "#{bower}/bootstrap/js/collapse.js"
+        "#{bower}/bootstrap/js/modal.js"
         "#{bower}/bootstrap/js/transition.js"
         "#{bower}/select2/select2.min.js"
       ]
