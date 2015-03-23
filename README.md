@@ -14,7 +14,7 @@ Content
 
 View [demo](https://node-tt.herokuapp.com).
 
-Email: ```john@doe.com```
+Email: ```admin@company.com```
 
 Password: ```123456```
 
