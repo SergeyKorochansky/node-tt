@@ -9,12 +9,15 @@ module.exports = (app) ->
         res.render 'milestones/new', project: project
 
   create: (req, res, next) ->
+    options =
+      name: req.body.name
+      project: req.body.project
+     
+    options.complete = req.body.complete if req.body.complete?
+    options.number = req.body.number if req.body.number?
+
     app.models.milestone
-    .create
-        name: req.body.name
-        complete: req.body.complete if req.body.complete?
-        number: req.body.number if req.body.number?
-        project: req.body.project
+    .create(options)
     .exec (err, milestone) ->
       if err || !milestone
         next err
@@ -55,7 +58,7 @@ module.exports = (app) ->
         milestone.number = req.body.number if req.body.number?
 
         milestone.save (err, milestone) ->
-          if err ||!milestone
+          if err || !milestone
             next err
           else
             req.flash 'success', "Milestone #{milestone.name} was updated"
