@@ -52,6 +52,13 @@ module.exports = (app, passport) ->
   app.patch '/milestones/:id', app.controllers.milestones.update
   app.delete '/milestones/:id', app.controllers.milestones.destroy
 
+  app.get '/notes/new', app.controllers.notes.new
+  app.post '/notes', app.controllers.notes.create
+  app.get '/notes/:id', app.controllers.notes.show
+  app.get '/notes/:id/edit', app.controllers.notes.edit
+  app.patch '/notes/:id', app.controllers.notes.update
+  app.delete '/notes/:id', app.controllers.notes.destroy
+
   app.use errorHandlers.notFound
   app.use errorHandlers.validationError
   app.use errorHandlers.internalError

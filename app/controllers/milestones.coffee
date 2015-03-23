@@ -12,7 +12,7 @@ module.exports = (app) ->
     options =
       name: req.body.name
       project: req.body.project
-     
+
     options.complete = req.body.complete if req.body.complete?
     options.number = req.body.number if req.body.number?
 
