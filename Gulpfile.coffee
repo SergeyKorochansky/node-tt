@@ -53,6 +53,7 @@ paths = {
       ]
   dest:
     app: "#{root}/build"
+    views: "#{root}/build/app/views"
     assets: "#{root}/build/public"
     css: "#{root}/build/public/css"
     js: "#{root}/build/public/js"
@@ -60,7 +61,7 @@ paths = {
 }
 
 gulp.task 'app:coffee', ->
-  gulp.src(paths.src.app.coffee, base: root)
+  gulp.src(paths.src.app.coffee)
   .pipe(cache('app:coffee'))
   .pipe(sourcemaps.init(sourceRoot: '.'))
   .pipe(coffee(bare: true).on('error', gutil.log))
@@ -70,6 +71,10 @@ gulp.task 'app:coffee', ->
 gulp.task 'app:jade',
   shell.task "mkdir -p #{root}/build/app;
    ln --symbolic #{root}/app/views #{root}/build/app/views"
+
+gulp.task 'app:jade-full', ->
+  gulp.src(paths.src.app.jade, base: root)
+  .pipe(gulp.dest(paths.dest.views))
 
 gulp.task 'assets:coffee', ->
   gulp.src(paths.src.assets.coffee, base: root)
@@ -173,13 +178,16 @@ gulp.task 'watch', ->
 gulp.task 'clean', (cb) ->
   del(paths.dest.app, cb)
 
-buildTasks = ['assets:less', 'assets:coffee', 'assets:css', 'assets:js',
-              'assets:img',
-              'app:coffee', 'app:jade']
+baseBuild = ['assets:less', 'assets:coffee', 'assets:css', 'assets:js',
+              'assets:img', 'app:coffee']
+buildTasks = baseBuild.concat ['app:jade']
 
 gulp.task 'build', ->
   runSequence 'clean',
     buildTasks
+
+gulp.task 'production:build', ->
+  runSequence baseBuild.concat ['app:jade-full']
 
 gulp.task 'default', ->
   runSequence 'clean',

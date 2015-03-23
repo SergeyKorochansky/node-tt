@@ -23,6 +23,4 @@ orm.initialize config.db, (err, data) ->
   require('./config/controllers')(app)
   require('./config/routes')(app, passport)
 
-  console.log 'I am running on port:'
-  console.log config.server.port
   app.listen(config.server.port)
