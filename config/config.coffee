@@ -16,10 +16,9 @@ settings =
   static: "#{rootPath}/public"
 
   server:
-    port: '3000'
-    hostname: '0.0.0.0'
+    port: process.env.PORT || '3000'
 
-  secret: 'secret'
+  secret: process.env.SECRET || 'secret'
   env: process.env.NODE_ENV || 'development'
 
 
