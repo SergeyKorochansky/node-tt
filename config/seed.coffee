@@ -62,3 +62,4 @@ orm.initialize config.db, (err, data) ->
       console.log 'Successfully!'
     else
       console.log err
+    process.exit()
