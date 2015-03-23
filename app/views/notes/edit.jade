@@ -1,0 +1,23 @@
+extends ../layouts/default
+block title
+  title Edit note #{note.name}
+block link
+  - var selected = 'Projects'
+block content
+  .col-md-4
+  .col-md-4.text-center
+    h2 Edit note
+    form.form-horizontal(role='form' method='post' action="/notes/#{note.id}")
+      input(type='hidden', name='_csrf', value=csrfToken)
+      input(type='hidden' name='_method' value='patch')
+      .form-group
+        label.col-sm-4.control-label(for='inputName') Name
+        .col-sm-8
+          input#inputName.form-control(name='name' type='text' value=note.name placeholder='Name' required autofocus maxlength='100' title='Maximal length is 100 chars')
+      .form-group
+        label.col-sm-4.control-label(for='inputContent') Content
+        .col-sm-8
+          textarea#inputContent.form-control(name='content' rows='3' placeholder='Content' maxlength='10000' title='Maximal length is 10 000 chars')
+            =note.content
+      .text-center
+        button.btn.btn-success(type='submit') Save

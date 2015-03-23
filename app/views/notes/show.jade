@@ -1,0 +1,37 @@
+extends ../layouts/default
+block title
+  title=note.name
+block link
+  - var selected = 'Projects'
+block content
+  .col-md-3
+  .col-md-6
+    .text-center
+      h3 Milestone: #{note.milestone.name}
+      h3 Note: #{note.name}
+      h3 Author: #{note.user.name}
+        |  <
+        a(href="mailto:#{note.user.email}")= note.user.email
+        | >
+      h3 Content: #{note.content}
+
+      .form-group
+        a.btn.btn-default(role='button' href="/notes/#{note.id}/edit") Edit note
+      .form-group
+        button.btn.btn-danger(type='button', data-toggle='modal', data-target='#removeModal') Remove note
+      hr
+
+  #removeModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='removeModalLabel', aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-label='Close')
+            span(aria-hidden='true') ×
+          h4#removeModalLabel.modal-title Removing note
+        .modal-body Do you want remove this note?
+        .modal-footer
+          form(role='form' method='post' action="/notes/#{note.id}")
+            input(type='hidden', name='_csrf', value=csrfToken)
+            input(type='hidden' name='_method' value='delete')
+            button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+            button.btn.btn-danger(type='submit') Remove
