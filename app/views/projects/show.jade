@@ -9,7 +9,10 @@ block content
     .text-center
       h3 Project: #{project.name}
       h4 Description: #{project.description}
-      a.btn.btn-default(role='button' href="/projects/#{project.id}/edit") Edit project
+      .form-group
+        a.btn.btn-default(role='button' href="/projects/#{project.id}/edit") Edit project
+      .form-group
+        button.btn.btn-danger(type='button', data-toggle='modal', data-target='#removeModal') Remove project
 
       hr
 
@@ -32,5 +35,21 @@ block content
             |  #{milestone.complete} % complete
             br
             | Number: #{milestone.number}
-      .text-center(role='toolbar')
+      .form-group
         a.btn.btn-success(role='button' href="/milestones/new?project=#{project.id}") Add new milestone
+
+
+  #removeModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='removeModalLabel', aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-label='Close')
+            span(aria-hidden='true') ×
+          h4#removeModalLabel.modal-title Removing project
+        .modal-body Do you want remove this project?
+        .modal-footer
+          form(role='form' method='post' action="/projects/#{project.id}")
+            input(type='hidden', name='_csrf', value=csrfToken)
+            input(type='hidden' name='_method' value='delete')
+            button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+            button.btn.btn-danger(type='submit') Remove
