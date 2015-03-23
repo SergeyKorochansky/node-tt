@@ -56,6 +56,7 @@ module.exports =
       model: 'city'
     role:
       model: 'role'
+      required: true
     comparePasswords: comparePasswords
     fullName: ->
       "#{@firstName} #{@lastName}"
