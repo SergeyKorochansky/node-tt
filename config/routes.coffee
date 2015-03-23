@@ -26,6 +26,19 @@ module.exports = (app, passport) ->
 
   app.post '/logout', app.controllers.sessions.destroy
 
+  app.get '/:resource/', app.middlewares.auth.readAction
+  app.get '/:resource/:id', app.middlewares.auth.readAction
+
+  app.get '/:resource/new', app.middlewares.auth.createAction
+  app.post '/:resource', app.middlewares.auth.createAction
+
+  app.get '/:resource/:id/edit', app.middlewares.auth.updateAction
+  app.patch '/:resource/:id', app.middlewares.auth.updateAction
+
+  app.delete '/:resource/:id', app.middlewares.auth.destroyAction
+
+  app.all '*', app.middlewares.auth.checkAccess
+
   app.get '/cities', app.controllers.cities.index
   app.get '/cities/new', app.controllers.cities.new
   app.post '/cities', app.controllers.cities.create

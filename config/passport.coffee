@@ -5,7 +5,10 @@ module.exports = (userModel, passport) ->
     done(null, user.id)
 
   deserialize = (id, done) ->
-    userModel.findOne id: id, (err, user) ->
+    userModel
+    .findOneById(id)
+    .populate('role')
+    .exec (err, user) ->
       done(err, user)
 
   passport.serializeUser(serialize)
