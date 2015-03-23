@@ -61,7 +61,7 @@ paths = {
 }
 
 gulp.task 'app:coffee', ->
-  gulp.src(paths.src.app.coffee)
+  gulp.src(paths.src.app.coffee, base: root)
   .pipe(cache('app:coffee'))
   .pipe(sourcemaps.init(sourceRoot: '.'))
   .pipe(coffee(bare: true).on('error', gutil.log))
@@ -73,7 +73,7 @@ gulp.task 'app:jade',
    ln --symbolic #{root}/app/views #{root}/build/app/views"
 
 gulp.task 'app:jade-full', ->
-  gulp.src(paths.src.app.jade, base: root)
+  gulp.src(paths.src.app.jade, base: "#{root}/app/views")
   .pipe(gulp.dest(paths.dest.views))
 
 gulp.task 'assets:coffee', ->
