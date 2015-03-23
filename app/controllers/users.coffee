@@ -9,7 +9,7 @@ module.exports = (app) ->
       else
         res.render 'users/index', users: users
 
-  new: (req, res) ->
+  new: (req, res, next) ->
     app.models.city
     .find()
     .sort('name')
