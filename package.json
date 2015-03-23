@@ -16,7 +16,7 @@
   "main": "app.js",
   "scripts": {
     "postinstall": "node_modules/.bin/bower install && npm run build",
-    "build": "node_modules/.bin/gulp production:build",
+    "build": "node_modules/.bin/gulp production:build seed",
     "start": "cd build && node app.js",
     "test": "mocha"
   },
