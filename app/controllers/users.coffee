@@ -17,7 +17,13 @@ module.exports = (app) ->
       if err
         next err
       else
-        res.render 'users/new', cities: cities
+        app.models.role
+        .find()
+        .exec (err, roles) ->
+          if err || !roles
+            next err || 'App roles are missing'
+          else
+            res.render 'users/new', cities: cities, roles: roles
 
   create: (passport) ->
     passport.authenticate 'local-signup', successRedirect: '/'

@@ -44,6 +44,7 @@ module.exports = (userModel, passport) ->
       firstName: req.body.firstName
       lastName: req.body.lastName
       city: req.body.city
+      role: req.body.role
     .exec (err, user) ->
         done(err, user)
 

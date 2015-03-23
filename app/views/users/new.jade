@@ -14,5 +14,8 @@ block content
         option City
         for city in cities
           option(value=city.id)=city.name
+      select.form-control(name='role')
+          for role in roles
+            option(value=role.id)=role.name
     button.btn.btn-lg.btn-primary.btn-block.btn-margin(type='submit') Sign up
     a(href='/login') Log in
