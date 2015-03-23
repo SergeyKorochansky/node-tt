@@ -35,12 +35,12 @@ Password: ```123456```
 
 ## Description
 
-This application is uses:
+This application uses:
 
 - Platform: Node.js
 - Framework: Express.js
 - Language: CoffeeScript
-- Template Engine: Jade
+- Template engine: Jade
 - Stylesheets preprocessor: LESS
 - Databases: Waterline ORM (MongoDB, MySQL)
 - Build system: Gulp
