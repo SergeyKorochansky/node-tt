@@ -14,6 +14,7 @@ block content
           span Progress: #{milestone.complete}%
 
       form(method='post')
+        input(type='hidden', name='_csrf', value=csrfToken)
         input(type='hidden' name='_method' value='delete')
         .form-group
           a.btn.btn-default(role='button' href="/milestones/#{milestone.id}/edit") Edit milestone

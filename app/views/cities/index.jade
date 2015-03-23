@@ -19,6 +19,7 @@ block content
               td= city.name
               td: a(href='/cities/' + city.id + '/edit') Edit
               td: form(method='post' action='/cities/' + city.id)
+                input(type='hidden', name='_csrf', value=csrfToken)
                 input(type='hidden' name='_method' value='delete')
                 button.btn.btn-danger(type='submit') Delete
 

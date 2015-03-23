@@ -44,6 +44,11 @@ module.exports = (app, passport) ->
   app.use(flash())
 
   if config.env == 'production'
-    app.use(csrf(cookie: true))
+    app.use(csrf())
+    app.use((req, res, next) ->
+      res.locals.csrfToken = req.csrfToken()
+      next()
+    )
+
 
 

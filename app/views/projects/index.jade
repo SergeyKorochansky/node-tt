@@ -27,6 +27,7 @@ block content
             td= user.createdAt.toLocaleDateString()
             td= user.updatedAt.toLocaleDateString()
             td: form(method='post' action="/projects/#{project.id}")
+              input(type='hidden', name='_csrf', value=csrfToken)
               input(type='hidden' name='_method' value='delete')
               button.btn.btn-danger(type='submit') Delete
 

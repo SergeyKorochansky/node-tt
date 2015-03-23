@@ -5,6 +5,7 @@ block content
   form.text-center(role='form' method='post')
     h2 Signup
     .form-group
+      input(type='hidden', name='_csrf', value=csrfToken)
       input.form-control(name='email' type='email' placeholder='Email' required autofocus maxlength='100' title='Maximal length is 100 chars')
       input.form-control(name='password' type='password' placeholder='Password' required pattern='.{6,}' title='Minimal length is 6 chars')
       input.form-control(name='firstName' type='text' placeholder='First name' required maxlength='100' pattern='.{3,100}' title='Length should be from 3 to 100 chars')

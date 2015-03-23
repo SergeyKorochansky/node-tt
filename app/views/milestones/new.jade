@@ -8,6 +8,7 @@ block content
   .col-md-4.text-center
     h2 Create Milestone
     form.form-horizontal(role='form' method='post' action='/milestones')
+      input(type='hidden', name='_csrf', value=csrfToken)
       input(type='hidden' name='project' value=project.id)
       .form-group
         label.col-sm-4.control-label(for='inputName') Name

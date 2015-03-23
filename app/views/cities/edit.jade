@@ -8,6 +8,7 @@ block content
   .col-md-4.text-center
     h2 Edit city
     form.form-horizontal(role='form' method='post' action='/cities/#{city.id}')
+      input(type='hidden', name='_csrf', value=csrfToken)
       input(type='hidden' name='_method' value='patch')
       .form-group
         label.col-sm-2.control-label(for='inputName') Name
