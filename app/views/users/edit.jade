@@ -35,5 +35,23 @@ block content
             for city in cities
               - var isSelected = (city.id == user.city)
               option(value=city.id selected=isSelected)=city.name
-      .form-group.text-center
-        button.btn.btn-success(type='submit') Save
+      .text-center
+        .form-group
+          button.btn.btn-success(type='submit') Save
+        .form.group
+          button.btn.btn-danger(type='button', data-toggle='modal', data-target='#removeModal') Remove my account
+
+    #removeModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='removeModalLabel', aria-hidden='true')
+      .modal-dialog
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+            h4#removeModalLabel.modal-title Removing account
+          .modal-body Do you want remove your account?
+          .modal-footer
+            form(role='form' method='post' action="/users/#{user.id}")
+              input(type='hidden', name='_csrf', value=csrfToken)
+              input(type='hidden' name='_method' value='delete')
+              button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+              button.btn.btn-danger(type='submit') Remove
