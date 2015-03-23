@@ -1,5 +1,5 @@
 module.exports = (app) ->
-  new: (req, res) ->
+  new: (req, res, next) ->
     app.models.project
     .findOneById(req.query.project)
     .exec (err, project) ->
