@@ -160,7 +160,7 @@ gulp.task 'debugger', ->
   gulp.src([])
   .pipe(nodeInspector())
 
-gulp.task 'seed', shell.task 'node_modules/.bin/coffee ./config/seed.coffee'
+gulp.task 'seed', shell.task 'cd config && ../node_modules/.bin/coffee seed.coffee'
 
 gulp.task 'watch', ->
   watch paths.src.app.coffee, ->
