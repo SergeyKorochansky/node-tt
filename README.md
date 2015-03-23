@@ -14,9 +14,24 @@ Content
 
 View [demo](https://node-tt.herokuapp.com).
 
+Admin:
+
 Email: ```admin@company.com```
 
 Password: ```123456```
+
+Manager:
+
+Email: ```manager@company.com```
+
+Password: ```123456```
+
+Client:
+
+Email: ```client@company.com```
+
+Password: ```123456```
+
 
 ## Description
 
